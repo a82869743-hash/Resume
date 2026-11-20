@@ -1,0 +1,103 @@
+.toolkit {
+  display: grid;
+  grid-template-columns: 0.9fr 1.3fr;
+  gap: clamp(30px, 5vw, 80px);
+  align-items: stretch;
+}
+.tk-lists {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 30px;
+  margin-top: 44px;
+}
+.tk-lists h3 {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+.tk-lists ul {
+  list-style: none;
+  display: grid;
+  gap: 8px;
+  font-size: 15px;
+  color: #4a4a4a;
+}
+.tk-stage {
+  position: relative;
+  min-height: 560px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 120%, rgba(17, 17, 17, 0.072), transparent 60%), var(--bg-2);
+}
+.tk-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: linear-gradient(180deg, transparent, #000 70%);
+  pointer-events: none;
+}
+.tk-stage canvas {
+  position: absolute !important;
+  inset: 0;
+}
+.tk-hint {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  z-index: 2;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  pointer-events: none;
+}
+@media (max-width: 1000px) {
+  .toolkit {
+    grid-template-columns: 1fr;
+  }
+  .tk-stage {
+    min-height: 440px;
+  }
+  .tk-hint {
+    display: none;
+  }
+}
+@media (max-width: 520px) {
+  .tk-lists {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.tk-groups {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 28px;
+  margin-top: 36px;
+}
+.tk-group h3 {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 6px;
+}
+.tk-group p {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: #3a3a3a;
+}
+@media (max-width: 520px) {
+  .tk-groups {
+    grid-template-columns: 1fr;
+  }
+}

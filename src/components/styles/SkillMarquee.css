@@ -1,0 +1,50 @@
+.skill-marquee {
+  padding: 40px 0 clamp(60px, 10vh, 120px);
+  overflow: hidden;
+}
+.sm-label {
+  max-width: var(--maxw);
+  margin: 0 auto 28px;
+  padding: 0 var(--gutter);
+}
+.sm-row {
+  border-top: 1px solid var(--line);
+  padding: 18px 0;
+  transform: rotate(-1.2deg);
+  background: var(--bg);
+}
+.sm-row.alt {
+  border-bottom: 1px solid var(--line);
+  transform: rotate(-1.2deg) translateY(-1px);
+}
+.sm-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 34px;
+  padding-right: 34px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(28px, 4.4vw, 64px);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  transition: color 0.3s;
+}
+.sm-row.alt .sm-item {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(17, 17, 17, 0.45);
+}
+.sm-item:hover {
+  color: var(--accent);
+  -webkit-text-stroke-color: var(--accent);
+}
+.sm-item i {
+  font-style: normal;
+  font-size: 0.45em;
+  color: var(--accent);
+  -webkit-text-stroke: 0;
+}
+
+.sm-item i {
+  color: var(--orange);
+}
