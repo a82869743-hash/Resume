@@ -4,22 +4,7 @@ import { useLoading } from "../context/LoadingProvider";
 import { gsap, prefersReducedMotion } from "../lib/gsap";
 import "./styles/Loader.css";
 
-type Tok = [string, string]; // [className, text]
-const CODE: Tok[][] = [
-  [["k", "const "], ["v", "aryan"], ["p", " = {"]],
-  [["i", "  role"], ["p", ": "], ["s", '"Full-Stack Developer"'], ["p", ","]],
-  [["i", "  strategy"], ["p", ": "], ["s", '"Digital Business"'], ["p", ","]],
-  [["i", "  stack"], ["p", ": ["], ["s", '"React"'], ["p", ", "], ["s", '"Node"'], ["p", ", "], ["s", '"Python"'], ["p", "],"]],
-  [["i", "  ai"], ["p", ": ["], ["s", '"Voice Agents"'], ["p", ", "], ["s", '"n8n"'], ["p", "],"]],
-  [["i", "  growth"], ["p", ": ["], ["s", '"Meta Ads"'], ["p", ", "], ["s", '"Content"'], ["p", "],"]],
-  [["i", "  projects"], ["p", ": "], ["n", "29"], ["p", ","]],
-  [["i", "  industries"], ["p", ": "], ["n", "7"], ["p", ","]],
-  [["i", "  mode"], ["p", ": "], ["s", '"freelance + agency"'], ["p", ","]],
-  [["p", "};"]],
-  [["c", "// strategy first, then code"]],
-  [["f", "build"], ["p", "(aryan)."], ["f", "deploy"], ["p", "();"]],
-];
-const FLOORS = CODE.length;
+const FLOORS = 10;
 const STAGES = [
   "Initialising workspace",
   "Installing dependencies",
@@ -29,8 +14,8 @@ const STAGES = [
   "Training AI agents",
   "Running n8n automations",
   "Launching Meta campaigns",
-  "Optimising bundle",
-  "Deploying to production",
+  "Fuelling the rocket",
+  "Ready for lift-off",
 ];
 
 const Loader = () => {
@@ -75,9 +60,13 @@ const Loader = () => {
       delay: 0.35,
       onComplete: () => setGone(true),
     });
-    tl.to(q(".ld-status, .ld-bar"), { opacity: 0, y: 12, duration: 0.4, ease: "power2.in" })
+    tl.to(q(".ld-rocket-wrap"), { y: 10, duration: 0.25, ease: "power2.out" })
+      .to(q(".ld-rocket-wrap"), { y: "-110vh", x: "16vh", rotate: 6, duration: 1, ease: "power3.in" })
+      .to(q(".ld-trail"), { scaleY: 1, opacity: 1, duration: 0.5, ease: "power2.in" }, "<0.1")
+      .to(q(".ld-trail"), { opacity: 0, duration: 0.5 }, ">-0.1")
+      .to(q(".ld-status, .ld-bar"), { opacity: 0, y: 12, duration: 0.4, ease: "power2.in" }, "<-0.6")
       .to(q(".ld-count-in"), { yPercent: -110, duration: 0.7, ease: "power4.in" }, "<")
-      .to(q(".ld-editor"), { y: -40, opacity: 0, duration: 0.6, ease: "power3.in" }, "<0.1")
+      .to(q(".ld-level"), { opacity: 0, duration: 0.3 }, 0)
       .to(q(".ld-meta"), { opacity: 0, duration: 0.3 }, "<")
       .add(() => setLoaded(true), "-=0.15")
       .to(q(".ld-door.top"), { yPercent: -100, duration: 1.1, ease: "expo.inOut" }, "+=0.05")
@@ -115,25 +104,17 @@ const Loader = () => {
       </div>
 
       <div className="ld-center">
-        <div className="ld-editor" aria-hidden>
-          <div className="ld-ed-bar">
-            <i />
-            <i />
-            <i />
-            <span>aryan.config.ts</span>
+        <div className="ld-hero" aria-hidden>
+          <div className="ld-rocket-wrap">
+            <span className="ld-trail" />
+            <div className="ld-rocket">
+              <img className="ld-ghost" src="./images/aryan-rocket.webp" alt="" />
+              <img className="ld-built" src="./images/aryan-rocket.webp" alt="" style={{ clipPath: `inset(${100 - progress}% 0 0 0)` }} />
+            </div>
           </div>
-          <pre className="ld-code">
-            {CODE.map((line, i) => (
-              <span key={i} className={`ld-line ${i < builtFloors ? "on" : ""} ${i === builtFloors - 1 ? "cur" : ""}`}>
-                <em>{String(i + 1).padStart(2, "0")}</em>
-                {line.map(([c, t], j) => (
-                  <b key={j} className={`t-${c}`}>
-                    {t}
-                  </b>
-                ))}
-              </span>
-            ))}
-          </pre>
+          <span className="ld-level" style={{ bottom: `${progress}%` }}>
+            <i>FUEL {progress}%</i>
+          </span>
         </div>
 
         <div className="ld-count" aria-hidden>
@@ -148,7 +129,7 @@ const Loader = () => {
         <span className="ld-dot" />
         <span>{stage}</span>
         <span className="ld-slab">
-          Build {String(builtFloors).padStart(2, "0")}/{FLOORS}
+          T-{String(FLOORS - builtFloors).padStart(2, "0")}
         </span>
       </div>
       <div className="ld-bar">
