@@ -133,9 +133,49 @@ const Toolkit = () => {
               </div>
             );
           })}
-          <div className="tk-core">
-            <img src="./images/aryan-avatar.webp" alt="" />
-            <span>AR.</span>
+          <div className="tk-core" aria-hidden>
+            <svg viewBox="0 0 120 120" className="tk-brain">
+              <defs>
+                <linearGradient id="tkg" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stopColor="#ff9a3c" />
+                  <stop offset="1" stopColor="#ff5a1f" />
+                </linearGradient>
+              </defs>
+              {/* left lobe */}
+              <path
+                className="tk-lobe"
+                d="M58 22c-8-6-20-4-25 4-9-1-16 7-14 16-7 4-9 14-4 21-3 8 2 17 10 18 2 8 11 13 19 10 4 5 10 6 14 3Z"
+              />
+              {/* right lobe (circuit side) */}
+              <path
+                className="tk-lobe r"
+                d="M62 22c8-6 20-4 25 4 9-1 16 7 14 16 7 4 9 14 4 21 3 8-2 17-10 18-2 8-11 13-19 10-4 5-10 6-14 3Z"
+              />
+              {/* gyri on the left */}
+              <g className="tk-folds">
+                <path d="M30 40c6-3 12 0 14 6" />
+                <path d="M24 60c7-2 13 2 14 8" />
+                <path d="M34 80c5-4 12-3 15 2" />
+                <path d="M46 30c-2 6 2 11 8 12" />
+                <path d="M42 54c4 3 10 2 12-3" />
+              </g>
+              {/* circuits on the right */}
+              <g className="tk-circ">
+                <path d="M62 34h14l6 6h10" />
+                <path d="M62 52h10l6-6h14" />
+                <path d="M62 66h18l6 6h8" />
+                <path d="M62 82h10l8 8h6" />
+                <path d="M76 34v-6" />
+              </g>
+              <g className="tk-nodes">
+                <circle cx="92" cy="40" r="3" />
+                <circle cx="92" cy="46" r="3" />
+                <circle cx="94" cy="72" r="3" />
+                <circle cx="86" cy="90" r="3" />
+                <circle cx="76" cy="27" r="3" />
+              </g>
+              <line x1="60" y1="20" x2="60" y2="100" className="tk-mid" />
+            </svg>
           </div>
         </div>
       </div>
