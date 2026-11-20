@@ -66,9 +66,10 @@ const Contact = () => {
         { backgroundSize: "0% 100%" },
         {
           backgroundSize: "100% 100%",
-          ease: "none",
-          stagger: 0.25,
-          scrollTrigger: { trigger: ".ct-giant", start: "top 95%", end: "bottom bottom", scrub: 0.6 },
+          ease: "power2.inOut",
+          duration: 0.9,
+          stagger: 0.35,
+          scrollTrigger: { trigger: ".ct-giant", start: "top 95%", toggleActions: "play none none reverse" },
         }
       );
       gsap.from(".ct-giant i", {
