@@ -14,7 +14,7 @@
   height: 14vh;
   z-index: 4;
   pointer-events: none;
-  background: linear-gradient(0deg, var(--bg) 10%, rgba(244, 244, 241, 0));
+  background: linear-gradient(0deg, var(--bg) 10%, rgba(246, 241, 234, 0));
 }
 
 /* giant name behind the character */
@@ -89,7 +89,7 @@
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: rgba(244, 244, 241, 0.75);
+  background: rgba(246, 241, 234, 0.75);
   backdrop-filter: blur(10px);
   box-shadow: 0 20px 40px -20px rgba(17, 17, 17, 0.35);
 }
@@ -208,7 +208,7 @@
   border: 1px solid rgba(17, 17, 17, 0.2);
   font-size: 14px;
   font-weight: 700;
-  background: rgba(244, 244, 241, 0.7);
+  background: rgba(246, 241, 234, 0.7);
   backdrop-filter: blur(8px);
   transition: background 0.3s, color 0.3s, transform 0.3s var(--ease);
 }
@@ -251,7 +251,7 @@
     bottom: 22px;
     padding: 14px 16px;
     border-radius: 18px;
-    background: rgba(244, 244, 241, 0.85);
+    background: rgba(246, 241, 234, 0.85);
     backdrop-filter: blur(10px);
   }
   .hx-iam {

@@ -75,7 +75,7 @@
 .wk-art {
   aspect-ratio: 240 / 230;
   border-radius: 6px;
-  background-color: #f6f6f6;
+  background-color: #f8f4ee;
   background-image: linear-gradient(rgba(17, 17, 17, 0.07) 1px, transparent 1px),
     linear-gradient(90deg, rgba(17, 17, 17, 0.07) 1px, transparent 1px);
   background-size: 16px 16px;
@@ -84,7 +84,7 @@
   overflow: hidden;
 }
 .wk-art.has-img {
-  background: radial-gradient(circle at 50% 65%, #ffffff 0%, #f1f1f1 70%);
+  background: radial-gradient(circle at 50% 65%, #ffffff 0%, #f4efe7 70%);
   place-items: end center;
   padding: 14px 10px 6px;
 }
@@ -260,11 +260,11 @@
 .wk-card .chip {
   color: #3a3a3a;
   border-color: rgba(17, 17, 17, 0.14);
-  background: #f6f6f3;
+  background: #f8f3ec;
 }
 .wk-art {
   position: relative;
-  background: #f4f4f1;
+  background: #f6f1ea;
   border-radius: 10px;
   display: grid;
   place-items: center;
@@ -343,7 +343,7 @@
   gap: 4px;
   height: 18px;
   padding: 0 8px;
-  background: #f3f3f1;
+  background: #f5f0e8;
   border-bottom: 1px solid rgba(17, 17, 17, 0.08);
 }
 .shot-bar i {
@@ -543,7 +543,7 @@
   padding: clamp(18px, 3vh, 30px) !important;
   background: radial-gradient(120% 90% at 85% 0%, color-mix(in srgb, var(--tint) 26%, transparent), transparent 60%),
     radial-gradient(90% 80% at 0% 100%, color-mix(in srgb, var(--tint) 14%, transparent), transparent 60%),
-    linear-gradient(160deg, #ffffff, #efefec) !important;
+    linear-gradient(160deg, #ffffff, #f1ece4) !important;
   border: 1px solid rgba(17, 17, 17, 0.06);
   box-shadow: 0 30px 50px -36px color-mix(in srgb, var(--tint) 70%, transparent);
   perspective: 1100px;

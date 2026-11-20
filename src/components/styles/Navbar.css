@@ -12,7 +12,7 @@
   content: "";
   position: absolute;
   inset: 0 0 -20px;
-  background: linear-gradient(180deg, rgba(239, 239, 239, 0.92), rgba(239, 239, 239, 0));
+  background: linear-gradient(180deg, rgba(243, 239, 232, 0.92), rgba(243, 239, 232, 0));
   pointer-events: none;
   z-index: -1;
 }

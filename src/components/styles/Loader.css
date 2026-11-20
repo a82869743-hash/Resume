@@ -17,11 +17,11 @@
 }
 .ld-door.top {
   top: 0;
-  background: linear-gradient(180deg, #efefef, #e9e9e9);
+  background: linear-gradient(180deg, #f3efe8, #ece6dc);
 }
 .ld-door.bottom {
   bottom: 0;
-  background: linear-gradient(0deg, #efefef, #e9e9e9);
+  background: linear-gradient(0deg, #f3efe8, #ece6dc);
 }
 .ld-seam {
   position: absolute;

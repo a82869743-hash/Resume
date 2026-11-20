@@ -223,7 +223,7 @@
   height: clamp(380px, 52vh, 560px);
   border-radius: 24px;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 60%, #fff, #ececec 70%);
+  background: radial-gradient(circle at 50% 60%, #fff, #eee8df 70%);
   border: 1px solid var(--line);
 }
 .ct-tower .tower-canvas {

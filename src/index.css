@@ -1,8 +1,8 @@
 :root {
-  --bg: #f4f4f1;
+  --bg: #f6f1ea;
   --orange: #ff5a1f;
   --grad: linear-gradient(100deg, #ff5a1f 0%, #ff9a3c 100%);
-  --bg-2: #f6f6f6;
+  --bg-2: #f8f4ee;
   --surface: #ffffff;
   --line: rgba(17, 17, 17, 0.1);
   --line-2: rgba(17, 17, 17, 0.22);
@@ -168,7 +168,7 @@ body::before {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: radial-gradient(ellipse at 50% 40%, #f4f4f4 0%, var(--bg) 60%, #e6e6e6 100%);
+  background: radial-gradient(ellipse at 50% 40%, #f7f2ea 0%, var(--bg) 60%, #e9e2d7 100%);
   transform: translateZ(0);
 }
 .grain {
@@ -187,4 +187,41 @@ html,
 body {
   overflow-x: clip;
   max-width: 100%;
+}
+
+/* ================= brand colour pass (colour only) ================= */
+:root {
+  --text: #1a1611;
+  --muted: #8a8178;
+}
+html {
+  color: var(--text);
+}
+/* orange as the primary brand colour */
+.nav-ind,
+.hx-pill,
+.hx-btn.solid,
+.dock-cv,
+.nav-talk,
+.wk-feat {
+  background: var(--grad) !important;
+  border-color: transparent !important;
+  color: #fff !important;
+}
+.hx-pill::after {
+  background: #fff !important;
+}
+.nav-talk .nav-live {
+  background: #fff;
+}
+.dock-cv:hover,
+.nav-talk:hover,
+.hx-btn.solid:hover {
+  background: #1a1611 !important;
+}
+.wk-feat::before {
+  color: #fff !important;
+}
+.nav-mark .nm-a {
+  stroke: #1a1611;
 }
