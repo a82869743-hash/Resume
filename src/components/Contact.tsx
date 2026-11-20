@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { FiArrowUpRight, FiMail, FiMapPin, FiPhone, FiDownload } from "react-icons/fi";
 import { gsap, SplitText, useGSAP, isTouch } from "../lib/gsap";
-import { profile, socials } from "../data/resume";
+import { profile } from "../data/resume";
 import HoverLink from "./HoverLink";
 import "./styles/Contact.css";
 
@@ -60,7 +60,39 @@ const Contact = () => {
         window.addEventListener("pointermove", move);
         off = () => window.removeEventListener("pointermove", move);
       }
+      // footer: giant words fill with the gradient as you reach the end
+      gsap.fromTo(
+        ".cg-fill",
+        { backgroundSize: "0% 100%" },
+        {
+          backgroundSize: "100% 100%",
+          ease: "none",
+          stagger: 0.25,
+          scrollTrigger: { trigger: ".ct-giant", start: "top 95%", end: "bottom bottom", scrub: 0.6 },
+        }
+      );
+      gsap.from(".ct-giant i", {
+        rotate: -180,
+        scale: 0,
+        stagger: 0.15,
+        ease: "back.out(2)",
+        duration: 1,
+        scrollTrigger: { trigger: ".ct-giant", start: "top 90%" },
+      });
+      const clock = root.current!.querySelector<HTMLElement>(".cf-time");
+      const tick = () => {
+        if (clock)
+          clock.textContent = new Intl.DateTimeFormat("en-IN", {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+            timeZone: "Asia/Kolkata",
+          }).format(new Date()) + " IST";
+      };
+      tick();
+      const clockId = window.setInterval(tick, 20000);
       return () => {
+        window.clearInterval(clockId);
         split.revert();
         off();
       };
@@ -133,22 +165,25 @@ const Contact = () => {
         </div>
 
         <div className="ct-foot">
-          <span>
-            © {year} {profile.name}
+          <span className="cf-item">
+            <i className="cf-dot" /> © {year} · All rights reserved
           </span>
-          {socials.length ? (
-            <span className="ct-socials">
-              {socials.map((s) => (
-                <a key={s.label} href={s.url} target="_blank" rel="noreferrer">
-                  {s.label}
-                </a>
-              ))}
-            </span>
-          ) : null}
+          <span className="cf-item cf-mid">
+            Crafted in Vadodara, India <b className="cf-time" />
+          </span>
+          <span className="cf-item cf-flow">
+            Strategy <em>→</em> Code <em>→</em> Growth
+          </span>
         </div>
       </div>
       <div className="ct-giant" aria-hidden>
-        ARYAN
+        <span className="cg-line">
+          <span className="cg-fill">BUILD</span>
+          <i>✦</i>
+          <span className="cg-fill">AUTOMATE</span>
+          <i>✦</i>
+          <span className="cg-fill">GROW</span>
+        </span>
       </div>
     </footer>
   );
