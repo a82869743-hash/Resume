@@ -96,44 +96,30 @@
 }
 .ld-hero {
   position: relative;
-  height: min(46vh, 420px);
-  aspect-ratio: 410 / 350;
+  height: min(66vh, 620px);
+  aspect-ratio: 853 / 1516;
 }
-.ld-rocket-wrap {
-  position: absolute;
-  inset: 0;
-}
-.ld-rocket {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  animation: ldBob 2.2s ease-in-out infinite;
-}
-.ld-rocket img {
+.ld-hero > img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: contain;
+  object-position: bottom;
 }
 .ld-ghost {
-  filter: grayscale(1) contrast(0.6) brightness(1.3);
-  opacity: 0.25;
+  filter: grayscale(1) contrast(0.5) brightness(1.35);
+  opacity: 0.22;
 }
 .ld-built {
   transition: clip-path 0.18s linear;
-  filter: drop-shadow(0 0 22px rgba(0, 200, 255, 0.35));
-}
-.is-done .ld-rocket {
-  animation: none;
 }
 .ld-level {
   position: absolute;
-  left: -14%;
-  right: -14%;
+  left: -8%;
+  right: -8%;
   height: 0;
-  border-top: 1px dashed rgba(17, 17, 17, 0.4);
+  border-top: 1px dashed rgba(17, 17, 17, 0.45);
   transition: bottom 0.18s linear;
 }
 .ld-level i {
@@ -143,23 +129,41 @@
   font-family: var(--mono);
   font-style: normal;
   font-size: 10px;
-  letter-spacing: 0.08em;
-  padding: 1px 7px;
+  padding: 1px 6px;
   border-radius: 999px;
   background: var(--orange);
   color: #fff;
-  white-space: nowrap;
+}
+.ld-rocket-wrap {
+  position: absolute;
+  left: 55.45%;
+  top: 0;
+  width: 44.55%;
+  aspect-ratio: 380 / 334;
+}
+.ld-rocket {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: auto;
+  display: block;
+  animation: ldBob 2.2s ease-in-out infinite;
+  filter: drop-shadow(0 0 18px rgba(0, 200, 255, 0.35));
+  transition: opacity 0.3s;
+}
+.is-done .ld-rocket {
+  animation: none;
 }
 .ld-trail {
   position: absolute;
   z-index: 1;
-  left: 36%;
-  top: 70%;
-  width: 13%;
+  left: 40%;
+  top: 55%;
+  width: 14%;
   height: 160vh;
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(255, 154, 60, 0.95), rgba(255, 90, 31, 0.35) 30%, transparent 70%);
-  filter: blur(7px);
+  background: linear-gradient(180deg, rgba(255, 154, 60, 0.9), rgba(255, 90, 31, 0.35) 30%, transparent 70%);
+  filter: blur(6px);
   transform-origin: top;
   transform: scaleY(0);
   opacity: 0;

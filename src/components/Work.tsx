@@ -5,6 +5,25 @@ import ProjectArt from "./ProjectArt";
 import ReelPlayer from "./ReelPlayer";
 import "./styles/Work.css";
 
+const TINTS: Record<string, string> = {
+  "GK Auto Herb": "#e0312b",
+  "God of Ceramic": "#c8102e",
+  O3: "#1f7ae0",
+  "O3 Car Spa": "#1f7ae0",
+  Satyanarayan: "#ff6f61",
+  Happy: "#f29a0b",
+  "Swish Auto Care": "#0bb4d6",
+  "SP Chemicals": "#8b1c2c",
+  "Arvind Fittings": "#2453c8",
+  "GIDC Manufacturing Co.": "#0f7a55",
+  "Freelance Marketspace": "#ff5a1f",
+  GrowthMates: "#0a9fd8",
+  "DBST Solutions": "#ff6a2b",
+  "Dr Neha Physiotherapy": "#8b3fd9",
+  Vroomy: "#4f46e5",
+};
+const tintOf = (c?: string) => (c && TINTS[c]) || "#ff5a1f";
+
 const Work = () => {
   const root = useRef<HTMLElement>(null);
   const [current, setCurrent] = useState(1);
@@ -25,7 +44,10 @@ const Work = () => {
             pin: true,
             scrub: 0.8,
             invalidateOnRefresh: true,
-            onUpdate: (s) => setCurrent(Math.min(projects.length, Math.floor(s.progress * projects.length) + 1)),
+            onUpdate: (s) => {
+              setCurrent(Math.min(projects.length, Math.floor(s.progress * projects.length) + 1));
+              root.current?.style.setProperty("--wk-p", String(s.progress));
+            },
           },
         });
         gsap.utils.toArray<HTMLElement>(".wk-card").forEach((card) => {
@@ -66,17 +88,27 @@ const Work = () => {
             </h2>
           </div>
           <div className="wk-count" aria-hidden>
-            <span>{String(current).padStart(2, "0")}</span>/{String(projects.length).padStart(2, "0")}
+            <small>{projects[current - 1]?.category}</small>
+            <div>
+              <span>{String(current).padStart(2, "0")}</span>/{String(projects.length).padStart(2, "0")}
+            </div>
           </div>
+        </div>
+        <div className="wk-progress" aria-hidden>
+          <i />
         </div>
         <div className="wk-track">
           {projects.map((p, i) => (
-            <article className={`wk-card ${p.featured ? "is-featured" : ""}`} key={`${p.client}-${p.name}`}>
-              <div className="wk-card-top">
-                <span className="wk-no">{String(i + 1).padStart(2, "0")}</span>
-                <span className="chip">{p.category}</span>
-              </div>
+            <article
+              className={`wk-card ${p.featured ? "is-featured" : ""}`}
+              key={`${p.client}-${p.name}`}
+              style={{ ["--tint" as string]: tintOf(p.client) }}
+            >
               <div className={`wk-art ${p.image || p.videos ? "has-img" : ""}`}>
+                <span className="wk-big" aria-hidden>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="wk-cat">{p.category}</span>
                 {p.videos ? (
                   <ReelPlayer videos={p.videos} poster={p.poster} label={`${p.name} reel`} />
                 ) : p.image && p.device === "art" ? (
@@ -107,13 +139,12 @@ const Work = () => {
                 {p.client ? <p className="wk-client">{p.client}</p> : null}
                 <h3>{p.name}</h3>
                 <p className="wk-desc">{p.desc}</p>
+                <span className="wk-go" aria-hidden>
+                  ↗
+                </span>
               </div>
             </article>
           ))}
-        </div>
-        <div className="wk-legend">
-          <span>Business systems · Manufacturing · Platforms · Websites · 3D · AI · Automation · Marketing</span>
-          <span className="wk-note">Some private systems shown as illustrations</span>
         </div>
       </div>
     </section>

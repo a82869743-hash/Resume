@@ -66,7 +66,7 @@ const Loader = () => {
       .to(q(".ld-trail"), { opacity: 0, duration: 0.5 }, ">-0.1")
       .to(q(".ld-status, .ld-bar"), { opacity: 0, y: 12, duration: 0.4, ease: "power2.in" }, "<-0.6")
       .to(q(".ld-count-in"), { yPercent: -110, duration: 0.7, ease: "power4.in" }, "<")
-      .to(q(".ld-level"), { opacity: 0, duration: 0.3 }, 0)
+      .to(q(".ld-hero"), { y: -30, opacity: 0, duration: 0.6, ease: "power3.in" }, "<0.15")
       .to(q(".ld-meta"), { opacity: 0, duration: 0.3 }, "<")
       .add(() => setLoaded(true), "-=0.15")
       .to(q(".ld-door.top"), { yPercent: -100, duration: 1.1, ease: "expo.inOut" }, "+=0.05")
@@ -105,16 +105,15 @@ const Loader = () => {
 
       <div className="ld-center">
         <div className="ld-hero" aria-hidden>
+          <img className="ld-ghost" src="./images/aryan-loader.webp" alt="" />
+          <img className="ld-built" src="./images/aryan-loader.webp" alt="" style={{ clipPath: `inset(${100 - progress}% 0 0 0)` }} />
+          <span className="ld-level" style={{ bottom: `${progress}%` }}>
+            <i>{progress}%</i>
+          </span>
           <div className="ld-rocket-wrap">
             <span className="ld-trail" />
-            <div className="ld-rocket">
-              <img className="ld-ghost" src="./images/aryan-rocket.webp" alt="" />
-              <img className="ld-built" src="./images/aryan-rocket.webp" alt="" style={{ clipPath: `inset(${100 - progress}% 0 0 0)` }} />
-            </div>
+            <img className="ld-rocket" src="./images/aryan-rocket.webp" alt="" style={{ opacity: 0.35 + (progress / 100) * 0.65 }} />
           </div>
-          <span className="ld-level" style={{ bottom: `${progress}%` }}>
-            <i>FUEL {progress}%</i>
-          </span>
         </div>
 
         <div className="ld-count" aria-hidden>

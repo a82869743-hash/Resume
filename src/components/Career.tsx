@@ -99,32 +99,37 @@ const Career = () => {
           <div className="wb-track">
             {experience.map((r, i) => (
               <article className="wb-card" key={i}>
-                <div className="wb-card-top">
-                  <span className="wb-ico" aria-hidden>
-                    {ICONS[i % ICONS.length]}
-                  </span>
-                  <span className={`wb-date ${r.end === "Present" ? "now" : ""}`}>{formatDates(r)}</span>
-                </div>
-                <h3>{r.role.split(" - ")[0]}</h3>
-                <p className="wb-co">
-                  {r.company}
-                  {r.unit ? <em> — {r.unit}</em> : null}
-                </p>
-                <ul>
-                  {r.points.map((p) => (
-                    <li key={p}>{p}</li>
-                  ))}
-                </ul>
-                {r.highlights ? (
-                  <div className="wb-tags">
-                    {r.highlights.map((h) => (
-                      <span key={h}>{h}</span>
-                    ))}
+                <div className="wb-l">
+                  <div className="wb-card-top">
+                    <span className="wb-ico" aria-hidden>
+                      {ICONS[i % ICONS.length]}
+                    </span>
+                    <span className={`wb-date ${r.end === "Present" ? "now" : ""}`}>{formatDates(r)}</span>
                   </div>
-                ) : null}
-                <span className="wb-num" aria-hidden>
-                  {String(i + 1).padStart(2, "0")}
-                </span>
+                  <div className="wb-l-main">
+                    <span className="wb-kicker">{String(i + 1).padStart(2, "0")} — {r.unit}</span>
+                    <h3>{r.role.split(" - ")[0]}</h3>
+                    <p className="wb-co">{r.company}</p>
+                    {r.role.includes(" - ") ? <p className="wb-sub">{r.role.split(" - ")[1]}</p> : null}
+                  </div>
+                  <span className="wb-num" aria-hidden>
+                    {r.year}
+                  </span>
+                </div>
+                <div className="wb-r">
+                  <ul>
+                    {r.points.map((p) => (
+                      <li key={p}>{p}</li>
+                    ))}
+                  </ul>
+                  {r.highlights ? (
+                    <div className="wb-tags">
+                      {r.highlights.map((h) => (
+                        <span key={h}>{h}</span>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
               </article>
             ))}
           </div>

@@ -492,3 +492,155 @@
   backdrop-filter: blur(6px);
   color: #fff;
 }
+
+/* ================= premium project cards ================= */
+.wk-count {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+.wk-count small {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+.wk-progress {
+  width: calc(100% - 2 * var(--gutter));
+  max-width: calc(var(--maxw) - 2 * var(--gutter));
+  margin: clamp(10px, 2vh, 22px) auto 0;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(17, 17, 17, 0.1);
+  overflow: hidden;
+}
+.wk-progress i {
+  display: block;
+  height: 100%;
+  background: var(--grad);
+  transform-origin: left;
+  transform: scaleX(var(--wk-p, 0));
+}
+.wk-card {
+  position: relative;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  gap: clamp(12px, 2vh, 18px) !important;
+}
+.wk-card:hover {
+  transform: none !important;
+}
+.wk-card.is-featured {
+  width: clamp(320px, min(34vw, 62vh), 520px) !important;
+}
+.wk-art {
+  position: relative;
+  border-radius: 22px !important;
+  padding: clamp(18px, 3vh, 30px) !important;
+  background: radial-gradient(120% 90% at 85% 0%, color-mix(in srgb, var(--tint) 26%, transparent), transparent 60%),
+    radial-gradient(90% 80% at 0% 100%, color-mix(in srgb, var(--tint) 14%, transparent), transparent 60%),
+    linear-gradient(160deg, #ffffff, #efefec) !important;
+  border: 1px solid rgba(17, 17, 17, 0.06);
+  box-shadow: 0 30px 50px -36px color-mix(in srgb, var(--tint) 70%, transparent);
+  perspective: 1100px;
+  overflow: hidden;
+  transition: box-shadow 0.6s var(--ease);
+}
+.wk-card:hover .wk-art {
+  box-shadow: 0 40px 70px -30px color-mix(in srgb, var(--tint) 85%, transparent);
+}
+.wk-art > .shot,
+.wk-art > .wk-render,
+.wk-art > .pa {
+  transform: rotateY(-14deg) rotateX(7deg) translateZ(0);
+  transform-origin: 50% 60%;
+  transition: transform 0.9s var(--ease) !important;
+}
+.wk-card:hover .wk-art > .shot,
+.wk-card:hover .wk-art > .wk-render,
+.wk-card:hover .wk-art > .pa {
+  transform: rotateY(0) rotateX(0) scale(1.03);
+}
+.wk-big {
+  position: absolute;
+  left: 14px;
+  bottom: -18px;
+  z-index: 0;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(80px, 12vh, 130px);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.2px color-mix(in srgb, var(--tint) 35%, transparent);
+  pointer-events: none;
+}
+.wk-art > *:not(.wk-big):not(.wk-cat):not(.wk-feat) {
+  position: relative;
+  z-index: 1;
+}
+.wk-cat {
+  position: absolute;
+  z-index: 3;
+  left: 14px;
+  top: 14px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  color: #333;
+}
+.wk-feat {
+  top: 14px !important;
+  right: 14px !important;
+  z-index: 3;
+  background: #111 !important;
+}
+.wk-feat::before {
+  content: "★ ";
+  color: var(--orange);
+}
+.wk-info {
+  position: relative;
+  padding: 0 52px 0 4px;
+}
+.wk-client {
+  color: var(--tint) !important;
+  filter: saturate(1.1) brightness(0.9);
+}
+.wk-info h3 {
+  font-size: clamp(19px, 2.6vh, 24px) !important;
+  letter-spacing: -0.01em;
+}
+.wk-desc {
+  -webkit-line-clamp: 2 !important;
+}
+.wk-go {
+  position: absolute;
+  right: 0;
+  top: 2px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(17, 17, 17, 0.15);
+  font-size: 16px;
+  transition: background 0.4s, color 0.4s, transform 0.5s var(--ease), border-color 0.4s;
+}
+.wk-card:hover .wk-go {
+  background: var(--tint);
+  border-color: var(--tint);
+  color: #fff;
+  transform: rotate(45deg);
+}
+.wk-no {
+  display: none;
+}

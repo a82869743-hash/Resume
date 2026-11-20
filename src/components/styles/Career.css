@@ -258,3 +258,110 @@
     max-height: none;
   }
 }
+
+/* ================= split-panel experience cards ================= */
+.wb-track {
+  --w: min(980px, 74vw) !important;
+}
+.wb-card {
+  display: grid !important;
+  grid-template-columns: 0.82fr 1.18fr;
+  padding: 0 !important;
+  border-radius: 30px !important;
+  max-height: 560px !important;
+  background: #fff;
+}
+.wb-l {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(22px, 3.6vh, 38px) clamp(22px, 2.4vw, 34px);
+  background: radial-gradient(120% 80% at 100% 0%, rgba(255, 90, 31, 0.45), transparent 55%),
+    radial-gradient(90% 70% at 0% 100%, rgba(255, 154, 60, 0.18), transparent 60%), linear-gradient(160deg, #1c1c1c, #0e0e0e);
+  color: #fff;
+  overflow: hidden;
+}
+.wb-l .wb-date {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+.wb-l .wb-ico {
+  background: var(--grad);
+}
+.wb-l-main {
+  position: relative;
+  z-index: 1;
+}
+.wb-kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ff9a3c;
+}
+.wb-l h3 {
+  margin-top: 12px !important;
+  font-size: clamp(26px, min(2.8vw, 4.6vh), 40px) !important;
+  line-height: 1.02 !important;
+  color: #fff;
+}
+.wb-l .wb-co {
+  margin-top: 12px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.75);
+}
+.wb-sub {
+  margin-top: 4px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 19px;
+  color: #ff9a3c;
+}
+.wb-l .wb-num {
+  right: auto;
+  left: 18px;
+  bottom: -30px;
+  font-size: clamp(90px, 13vh, 150px);
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.08);
+}
+.wb-r {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(22px, 3.6vh, 38px) clamp(22px, 2.6vw, 38px);
+  background: linear-gradient(180deg, #ffffff, #fafaf8);
+  min-width: 0;
+}
+.wb-r ul {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  border-top: 0 !important;
+  gap: clamp(8px, 1.5vh, 14px) !important;
+}
+.wb-r li {
+  padding-left: 30px !important;
+}
+.wb-r li::before {
+  content: "" !important;
+  top: 0.45em !important;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--orange) 0 3px, rgba(255, 90, 31, 0.15) 3.5px) !important;
+}
+.wb-card.is-on {
+  box-shadow: 0 60px 100px -50px rgba(255, 90, 31, 0.55) !important;
+}
+@media (max-width: 960px) {
+  .wb-track {
+    --w: 100% !important;
+  }
+  .wb-card {
+    grid-template-columns: 1fr;
+    max-height: none !important;
+  }
+  .wb-l {
+    gap: 26px;
+  }
+}

@@ -1,9 +1,18 @@
 import { useRef } from "react";
 import { FiArrowUpRight, FiMail, FiMapPin, FiPhone, FiDownload } from "react-icons/fi";
-import { gsap, SplitText, useGSAP } from "../lib/gsap";
+import { gsap, SplitText, useGSAP, isTouch } from "../lib/gsap";
 import { profile, services, socials } from "../data/resume";
 import HoverLink from "./HoverLink";
 import "./styles/Contact.css";
+
+/* Layers cut from the illustration: [left %, top %, width %] of the square scene. */
+const LAYERS = [
+  { n: "plane", pos: [0.64, 35.73, 95.22], depth: 10 },
+  { n: "mail", pos: [12.84, 10.85, 24.24], depth: 26 },
+  { n: "phone", pos: [54.78, 6.62, 21.77], depth: 32 },
+  { n: "calendar", pos: [70.73, 20.49, 23.84], depth: 22 },
+  { n: "dots", pos: [6.3, 32.14, 20.1], depth: 18 },
+];
 
 const Contact = () => {
   const root = useRef<HTMLElement>(null);
@@ -33,7 +42,35 @@ const Contact = () => {
         ease: "power3.out",
         scrollTrigger: { trigger: ".ct-top", start: "top 80%", once: true },
       });
-      return () => split.revert();
+      // illustration: plane glides in, bubbles pop one by one, then everything floats
+      const tl = gsap.timeline({ scrollTrigger: { trigger: ".ct-scene", start: "top 85%", once: true } });
+      tl.from(".ct-plane", { xPercent: -40, yPercent: 30, rotate: -8, opacity: 0, duration: 1.4, ease: "expo.out" }).from(
+        ".ct-mail, .ct-dots, .ct-phone, .ct-calendar",
+        { scale: 0, opacity: 0, rotate: -12, transformOrigin: "50% 100%", stagger: 0.14, duration: 0.8, ease: "back.out(2)" },
+        "-=0.8"
+      );
+      gsap.to(".ct-plane", { y: -12, rotate: -1.5, duration: 3, ease: "sine.inOut", yoyo: true, repeat: -1 });
+      gsap.utils.toArray<HTMLElement>(".ct-mail, .ct-dots, .ct-phone, .ct-calendar").forEach((el, i) =>
+        gsap.to(el, { y: -10 - i * 2, duration: 2.2 + i * 0.35, ease: "sine.inOut", yoyo: true, repeat: -1, delay: i * 0.3 })
+      );
+      let off = () => {};
+      if (!isTouch()) {
+        const layers = gsap.utils.toArray<HTMLElement>(".ct-l");
+        const setters = layers.map((el) => ({
+          d: Number(el.dataset.depth),
+          x: gsap.quickTo(el, "x", { duration: 1, ease: "power3" }),
+        }));
+        const move = (e: PointerEvent) => {
+          const px = e.clientX / window.innerWidth - 0.5;
+          setters.forEach((s) => s.x(px * s.d));
+        };
+        window.addEventListener("pointermove", move);
+        off = () => window.removeEventListener("pointermove", move);
+      }
+      return () => {
+        split.revert();
+        off();
+      };
     },
     { scope: root }
   );
@@ -57,6 +94,20 @@ const Contact = () => {
               {profile.email}
               <FiArrowUpRight />
             </a>
+          </div>
+          <div className="ct-right">
+          <div className="ct-scene" aria-hidden>
+            {LAYERS.map((l) => (
+              <img
+                key={l.n}
+                className={`ct-l ct-${l.n}`}
+                data-depth={l.depth}
+                src={`./images/contact/${l.n}.webp`}
+                alt=""
+                loading="lazy"
+                style={{ left: `${l.pos[0]}%`, top: `${l.pos[1]}%`, width: `${l.pos[2]}%` }}
+              />
+            ))}
           </div>
           <aside className="ct-card">
             <p className="ct-card-k">
@@ -82,6 +133,7 @@ const Contact = () => {
               </a>
             </div>
           </aside>
+          </div>
         </div>
 
         <div className="ct-cols">

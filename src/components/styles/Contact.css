@@ -372,3 +372,63 @@
 .ct-socials a:hover {
   color: var(--orange);
 }
+
+/* ---------- paper-plane scene ---------- */
+.ct-top {
+  align-items: end;
+}
+.ct-right {
+  position: relative;
+}
+.ct-scene {
+  position: relative;
+  z-index: 2;
+  width: 82%;
+  margin: 0 0 -16% auto;
+  aspect-ratio: 1;
+  pointer-events: none;
+}
+.ct-l {
+  position: absolute;
+  height: auto;
+  filter: drop-shadow(0 14px 18px rgba(17, 17, 17, 0.12));
+  will-change: transform;
+}
+.ct-plane {
+  filter: drop-shadow(0 26px 30px rgba(255, 90, 31, 0.28));
+}
+.ct-right .ct-card {
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 900px) {
+  .ct-scene {
+    width: 70%;
+    margin: 10px auto -14%;
+  }
+}
+@media (min-width: 901px) {
+  .ct-top {
+    align-items: center;
+  }
+  .ct-inner {
+    padding-top: clamp(200px, 26vh, 260px);
+  }
+  .ct-scene {
+    position: absolute;
+    right: -4%;
+    bottom: calc(100% - 70px);
+    width: 64%;
+    margin: 0;
+  }
+}
+@media (min-width: 901px) {
+  .ct-inner {
+    padding-top: clamp(240px, 32vh, 320px);
+  }
+  .ct-scene {
+    width: 52%;
+    right: -2%;
+    bottom: calc(100% - 90px);
+  }
+}

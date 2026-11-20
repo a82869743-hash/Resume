@@ -52,9 +52,9 @@ const Site = () => {
             <About />
             <WhatIDo />
             <SkillMarquee />
+            <Work />
             <Career />
             <Achievements />
-            <Work />
             <Suspense fallback={<div style={{ height: "100vh" }} />}>
               <Toolkit />
             </Suspense>
