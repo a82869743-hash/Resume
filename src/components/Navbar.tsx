@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { FiFileText, FiGithub, FiInstagram, FiLinkedin, FiMail, FiMapPin, FiPhone } from "react-icons/fi";
+import { FiDownload, FiFileText, FiGithub, FiInstagram, FiLinkedin, FiMail, FiMapPin, FiPhone } from "react-icons/fi";
 
 const SOCIAL_ICON: Record<string, JSX.Element> = {
   GitHub: <FiGithub />,
@@ -32,6 +32,7 @@ const Navbar = () => {
   const [time, setTime] = useState("");
   const pill = useRef<HTMLDivElement>(null);
   const ind = useRef<HTMLSpanElement>(null);
+  const fab = useRef<HTMLAnchorElement>(null);
 
   // Vadodara local time
   useEffect(() => {
@@ -49,6 +50,7 @@ const Navbar = () => {
       start: 0,
       end: "max",
       onUpdate: (self) => {
+        fab.current?.style.setProperty("--p", String(self.progress * 100));
         const y = self.scroll();
         setCompact(y > 80);
         setHidden(self.direction === 1 && y > window.innerHeight * 0.8);
@@ -154,15 +156,20 @@ const Navbar = () => {
       </header>
 
       <aside className="side-rail" aria-label="Contact shortcuts">
+        <span className="rail-label rail-reveal" aria-hidden>
+          Let's connect
+        </span>
+        <span className="rail-line rail-reveal" aria-hidden />
+        <div className="rail-dock rail-reveal">
         {socials.map((s) => (
-          <a key={s.label} className="rail-reveal" href={s.url} target="_blank" rel="noreferrer" aria-label={s.label} data-tip={s.label}>
+          <a key={s.label} className="rail-btn" href={s.url} target="_blank" rel="noreferrer" aria-label={s.label} data-tip={s.label}>
             {SOCIAL_ICON[s.label]}
           </a>
         ))}
-        <a className="rail-reveal" href={`mailto:${profile.email}`} aria-label="Email Aryan" data-tip="Email">
+        <a className="rail-btn" href={`mailto:${profile.email}`} aria-label="Email Aryan" data-tip="Email">
           <FiMail />
         </a>
-        <a className="rail-reveal" href={profile.phoneHref} aria-label="Call Aryan" data-tip="Call">
+        <a className="rail-btn" href={profile.phoneHref} aria-label="Call Aryan" data-tip="Call">
           <FiPhone />
         </a>
         <a
@@ -175,10 +182,18 @@ const Navbar = () => {
         >
           <FiMapPin />
         </a>
+        </div>
       </aside>
 
-      <a className="resume-fab" href={RESUME} target="_blank" rel="noreferrer">
-        <HoverLink>RESUME</HoverLink> <FiFileText />
+      <a className="resume-fab" href={RESUME} target="_blank" rel="noreferrer" aria-label="Download CV" ref={fab}>
+        <svg className="fab-ring" viewBox="0 0 60 60" aria-hidden>
+          <circle cx="30" cy="30" r="27" className="fab-track" />
+          <circle cx="30" cy="30" r="27" className="fab-prog" pathLength={100} />
+        </svg>
+        <span className="fab-ico">
+          <FiDownload />
+        </span>
+        <span className="fab-label">Download CV</span>
       </a>
     </>
   );

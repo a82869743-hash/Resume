@@ -461,3 +461,128 @@ a:hover .hover-link .hover-link-in {
   white-space: nowrap;
   font-size: 14px;
 }
+
+/* ================= side dock ================= */
+.side-rail {
+  left: 28px !important;
+  bottom: 32px !important;
+  gap: 14px !important;
+  align-items: center;
+}
+.rail-label {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.rail-line {
+  width: 1px;
+  height: 46px;
+  background: linear-gradient(rgba(17, 17, 17, 0), rgba(17, 17, 17, 0.3));
+}
+.rail-dock {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  box-shadow: 0 14px 30px -16px rgba(17, 17, 17, 0.35);
+}
+.side-rail .rail-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 17px !important;
+  color: #111;
+  transition: background 0.35s, color 0.35s, transform 0.35s var(--ease) !important;
+}
+.side-rail .rail-btn:hover {
+  background: var(--orange);
+  color: #fff;
+  transform: scale(1.08) !important;
+}
+.side-rail .rail-btn::after {
+  left: 52px !important;
+  border-radius: 999px !important;
+  padding: 6px 12px !important;
+}
+
+/* ================= resume fab ================= */
+.resume-fab {
+  --p: 0;
+  right: 28px !important;
+  bottom: 32px !important;
+  height: 60px;
+  min-width: 60px;
+  padding: 0 !important;
+  gap: 0 !important;
+  border-radius: 999px;
+  background: #111;
+  color: #fff !important;
+  letter-spacing: 0 !important;
+  font-family: var(--body) !important;
+  font-size: 14px !important;
+  overflow: hidden;
+  box-shadow: 0 18px 34px -16px rgba(17, 17, 17, 0.6);
+  transition: background 0.35s, box-shadow 0.35s;
+}
+.fab-ring {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60px;
+  height: 60px;
+  transform: rotate(-90deg);
+}
+.fab-ring circle {
+  fill: none;
+  stroke-width: 2.5;
+}
+.fab-track {
+  stroke: rgba(255, 255, 255, 0.14);
+}
+.fab-prog {
+  stroke: var(--orange);
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: calc(100 - var(--p));
+  transition: stroke-dashoffset 0.15s linear;
+}
+.fab-ico {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  font-size: 19px;
+}
+.fab-label {
+  max-width: 0;
+  opacity: 0;
+  white-space: nowrap;
+  font-weight: 700;
+  transition: max-width 0.5s var(--ease), opacity 0.3s, padding 0.5s var(--ease);
+}
+.resume-fab:hover .fab-label {
+  max-width: 140px;
+  opacity: 1;
+  padding-right: 22px;
+}
+.resume-fab:hover {
+  background: var(--orange);
+}
+.resume-fab:hover .fab-prog {
+  stroke: #fff;
+}
+.side-rail .rail-btn svg {
+  width: 17px;
+  height: 17px;
+}

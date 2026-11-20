@@ -264,3 +264,7 @@
     bottom: clamp(96px, 15vh, 140px);
   }
 }
+.hx-pill {
+  min-width: 13.2em;
+  padding: 0 1.4em 0 0.8em;
+}
