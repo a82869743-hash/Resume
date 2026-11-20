@@ -432,3 +432,17 @@
     bottom: calc(100% - 90px);
   }
 }
+
+/* plane scene only, no card */
+@media (min-width: 901px) {
+  .ct-inner {
+    padding-top: clamp(120px, 16vh, 170px) !important;
+  }
+  .ct-scene {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    max-width: 520px;
+    margin: 0 0 0 auto !important;
+  }
+}

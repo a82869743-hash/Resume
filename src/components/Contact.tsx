@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { FiArrowUpRight, FiMail, FiMapPin, FiPhone, FiDownload } from "react-icons/fi";
 import { gsap, SplitText, useGSAP, isTouch } from "../lib/gsap";
-import { profile, services, socials } from "../data/resume";
+import { profile, socials } from "../data/resume";
 import HoverLink from "./HoverLink";
 import "./styles/Contact.css";
 
@@ -34,13 +34,6 @@ const Contact = () => {
         duration: 1,
         ease: "power3.out",
         scrollTrigger: { trigger: ".ct-cols", start: "top 85%" },
-      });
-      gsap.from(".ct-card", {
-        y: 50,
-        opacity: 0,
-        duration: 1.2,
-        ease: "power3.out",
-        scrollTrigger: { trigger: ".ct-top", start: "top 80%", once: true },
       });
       // illustration: plane glides in, bubbles pop one by one, then everything floats
       const tl = gsap.timeline({ scrollTrigger: { trigger: ".ct-scene", start: "top 85%", once: true } });
@@ -109,30 +102,6 @@ const Contact = () => {
               />
             ))}
           </div>
-          <aside className="ct-card">
-            <p className="ct-card-k">
-              <i /> {profile.status}
-            </p>
-            <h3>
-              Have a business problem? <em>Let's build the system for it.</em>
-            </h3>
-            <ul>
-              {services.map((s) => (
-                <li key={s.no}>
-                  <span>{s.no}</span>
-                  {s.title}
-                </li>
-              ))}
-            </ul>
-            <div className="ct-card-cta">
-              <a href={`mailto:${profile.email}?subject=Project%20enquiry`} className="ct-btn">
-                Start a project <FiArrowUpRight />
-              </a>
-              <a href={profile.phoneHref} className="ct-btn ghost">
-                Call <FiPhone />
-              </a>
-            </div>
-          </aside>
           </div>
         </div>
 

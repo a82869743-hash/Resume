@@ -365,3 +365,59 @@
     gap: 26px;
   }
 }
+
+/* light illustrated role panel */
+.wb-l {
+  color: #111 !important;
+  background: radial-gradient(rgba(17, 17, 17, 0.08) 1px, transparent 1.3px) 0 0 / 16px 16px,
+    radial-gradient(110% 70% at 100% 100%, rgba(255, 90, 31, 0.22), transparent 60%),
+    linear-gradient(160deg, #fbfaf7, #f1efe9) !important;
+  border-right: 1px solid rgba(17, 17, 17, 0.06);
+}
+.wb-l .wb-date {
+  background: #fff !important;
+  color: #111 !important;
+  border-color: rgba(17, 17, 17, 0.12) !important;
+}
+.wb-l h3 {
+  color: #111 !important;
+}
+.wb-l .wb-co {
+  color: #555 !important;
+}
+.wb-kicker,
+.wb-sub {
+  color: var(--orange) !important;
+}
+.wb-l-main {
+  margin-top: 14px;
+}
+.wb-l {
+  justify-content: flex-start !important;
+}
+.wb-art {
+  position: absolute;
+  right: -4%;
+  bottom: -2%;
+  width: 66%;
+  max-height: 52%;
+  object-fit: contain;
+  object-position: bottom right;
+  filter: drop-shadow(0 20px 24px rgba(17, 17, 17, 0.16));
+  animation: wbFloat 5s ease-in-out infinite;
+  pointer-events: none;
+}
+.wb-l .wb-num {
+  -webkit-text-stroke: 1px rgba(17, 17, 17, 0.07) !important;
+  z-index: 0;
+}
+@keyframes wbFloat {
+  50% {
+    transform: translateY(-10px) rotate(-1deg);
+  }
+}
+@media (max-width: 960px) {
+  .wb-l {
+    min-height: 420px;
+  }
+}

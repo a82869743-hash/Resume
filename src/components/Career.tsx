@@ -4,6 +4,14 @@ import { experience, formatDates } from "../data/resume";
 import "./styles/Career.css";
 
 const ICONS = ["◆", "▣", "✦", "◎", "▲"];
+/* Illustration per role (same order as `experience`). Swap files here to change art. */
+const ART = [
+  "./images/projects/marketplace-art.webp",
+  "./images/aryan-command.webp",
+  "./images/projects/voice-agent-art.webp",
+  "./images/projects/meta-ads-art.webp",
+  "./images/aryan-whiteboard.webp",
+];
 
 const Career = () => {
   const root = useRef<HTMLElement>(null);
@@ -112,6 +120,7 @@ const Career = () => {
                     <p className="wb-co">{r.company}</p>
                     {r.role.includes(" - ") ? <p className="wb-sub">{r.role.split(" - ")[1]}</p> : null}
                   </div>
+                  <img className="wb-art" src={ART[i % ART.length]} alt="" loading="lazy" aria-hidden />
                   <span className="wb-num" aria-hidden>
                     {r.year}
                   </span>
