@@ -179,7 +179,7 @@ const Navbar = () => {
             <FiMapPin />
           </a>
           <span className="dock-sep" aria-hidden />
-          <a className="dock-cv" href={RESUME} target="_blank" rel="noreferrer" ref={fab}>
+          <a className="dock-cv" href={RESUME} target="_blank" rel="noreferrer" ref={fab} aria-label="Download CV (PDF)">
             <span className="dock-cv-ring" aria-hidden>
               <svg viewBox="0 0 36 36" className="dock-cv-svg">
                 <circle cx="18" cy="18" r="15" className="fab-track" />

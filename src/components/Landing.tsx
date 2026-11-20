@@ -45,7 +45,7 @@ const Landing = () => {
   useGSAP(
     () => {
       if (!loaded) return;
-      const word = SplitText.create(".hx-word-in", { type: "chars", charsClass: "hx-ch" });
+      const word = SplitText.create(".hx-word-in", { aria: "none", type: "chars", charsClass: "hx-ch" });
       const tl = gsap.timeline({ delay: 0.45 });
       tl.from(word.chars, { yPercent: 120, duration: 1.4, stagger: 0.07, ease: "expo.out" })
         .from(".hx-figure-wrap", { yPercent: 35, opacity: 0, duration: 1.6, ease: "expo.out" }, 0.25)
@@ -105,19 +105,21 @@ const Landing = () => {
       </button>
 
       <div className="hx-intro">
-        <p className="hx-hi">
-          Hi, I'm <strong>{profile.name}</strong>.
-        </p>
-        <h1 className="hx-iam">
+        <h1 className="hx-hi">
+          Hi, I'm <strong>{profile.name}</strong>
+          <span className="sr-only"> — {profile.title} &amp; {profile.discipline} in Vadodara, Gujarat, India</span>.
+        </h1>
+        <p className="hx-iam">
           I am a
-          <span className="hx-pill" aria-label={ROLES.join(", ")}>
+          <span className="sr-only">{ROLES.join(", ")}</span>
+          <span className="hx-pill" aria-hidden>
             {ROLES.map((r) => (
               <span className="hx-pill-item" key={r} aria-hidden>
                 {r}
               </span>
             ))}
           </span>
-        </h1>
+        </p>
       </div>
 
       <div className="hx-cta">

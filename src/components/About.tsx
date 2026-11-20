@@ -17,7 +17,7 @@ const About = () => {
     () => {
       // Words darken from light grey to black as you scroll.
       // autoSplit re-splits after webfonts load / on resize so words never overlap.
-      const split = SplitText.create(".about-text", {
+      const split = SplitText.create(".about-text", { aria: "none",
         type: "words",
         wordsClass: "w",
         autoSplit: true,

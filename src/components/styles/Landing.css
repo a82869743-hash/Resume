@@ -303,3 +303,12 @@
     bottom: calc(84px + env(safe-area-inset-bottom, 0px)) !important;
   }
 }
+
+/* semantic h1 swap: keep identical visuals */
+h1.hx-hi {
+  font-weight: 400;
+  line-height: normal;
+}
+p.hx-iam {
+  margin-top: 10px;
+}

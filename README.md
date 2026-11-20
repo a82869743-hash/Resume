@@ -25,3 +25,21 @@ npm run build && npm run pdf && npm run build
 ```
 
 `npm run pdf` prints `resume.html` to `public/Aryan-Singh-Rajput-Resume.pdf`, which the site's Resume links download.
+
+## SEO / GEO / AEO
+
+Generated at build time by `seo/plugin.ts` from `src/data/resume.ts`:
+
+- Title, meta description, keywords, Open Graph / Twitter card (`public/og-image.png`), geo meta tags
+- JSON-LD: Person, ProfessionalService, WebSite, ProfilePage, ItemList (all projects), FAQPage
+- Crawlable text copy of the site inside `#root` for crawlers that don't run JavaScript (React replaces it on load)
+- `robots.txt` (search engines + AI crawlers allowed), `sitemap.xml` with images, `llms.txt` / `llms-full.txt`, `site.webmanifest`
+- `resume.html` is `noindex` (the PDF is the indexable resume)
+
+**Set your domain when deploying** so canonical, og:url and the sitemap use absolute URLs:
+
+```bash
+SITE_URL=https://your-domain.com npm run build
+```
+
+On Vercel/Netlify add `SITE_URL` as an environment variable. Then submit `https://your-domain.com/sitemap.xml` in Google Search Console and Bing Webmaster Tools.

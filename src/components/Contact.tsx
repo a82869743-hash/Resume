@@ -19,7 +19,7 @@ const Contact = () => {
 
   useGSAP(
     () => {
-      const split = SplitText.create(".ct-big .ln", { type: "lines", mask: "lines" });
+      const split = SplitText.create(".ct-big .ln", { aria: "none", type: "lines", mask: "lines" });
       gsap.from(split.lines, {
         yPercent: 110,
         duration: 1.1,
