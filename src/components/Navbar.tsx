@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { FiFileText, FiGithub, FiInstagram, FiLinkedin, FiMail, FiMapPin, FiPhone } from "react-icons/fi";
 
 const SOCIAL_ICON: Record<string, JSX.Element> = {
@@ -8,11 +8,12 @@ const SOCIAL_ICON: Record<string, JSX.Element> = {
 };
 import HoverLink from "./HoverLink";
 import { useLoading } from "../context/LoadingProvider";
-import { gsap, scrollToId } from "../lib/gsap";
+import { gsap, ScrollTrigger, scrollToId } from "../lib/gsap";
 import { profile, socials } from "../data/resume";
 import "./styles/Navbar.css";
 
 const LINKS = [
+  { id: "home", label: "Home" },
   { id: "about", label: "About" },
   { id: "work", label: "Work" },
   { id: "career", label: "Experience" },
@@ -25,6 +26,54 @@ const Navbar = () => {
   const { loaded } = useLoading();
   const nav = useRef<HTMLElement>(null);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("home");
+  const [hidden, setHidden] = useState(false);
+  const [compact, setCompact] = useState(false);
+  const [time, setTime] = useState("");
+  const pill = useRef<HTMLDivElement>(null);
+  const ind = useRef<HTMLSpanElement>(null);
+
+  // Vadodara local time
+  useEffect(() => {
+    const f = () =>
+      setTime(new Intl.DateTimeFormat("en-IN", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Asia/Kolkata" }).format(new Date()));
+    f();
+    const id = window.setInterval(f, 20000);
+    return () => window.clearInterval(id);
+  }, []);
+
+  // hide on scroll down, show on scroll up; compact after the hero
+  useEffect(() => {
+    if (!loaded) return;
+    const st = ScrollTrigger.create({
+      start: 0,
+      end: "max",
+      onUpdate: (self) => {
+        const y = self.scroll();
+        setCompact(y > 80);
+        setHidden(self.direction === 1 && y > window.innerHeight * 0.8);
+      },
+    });
+    const sts = LINKS.map((l) =>
+      ScrollTrigger.create({
+        trigger: `#${l.id}`,
+        start: "top 50%",
+        end: "bottom 50%",
+        onToggle: (self) => self.isActive && setActive(l.id),
+      })
+    );
+    return () => {
+      st.kill();
+      sts.forEach((t) => t.kill());
+    };
+  }, [loaded]);
+
+  // sliding active indicator
+  useLayoutEffect(() => {
+    const btn = pill.current?.querySelector<HTMLElement>(`[data-id="${active}"]`);
+    if (!btn || !ind.current) return;
+    gsap.to(ind.current, { x: btn.offsetLeft, width: btn.offsetWidth, duration: 0.55, ease: "expo.out" });
+  }, [active, loaded]);
 
   useEffect(() => {
     if (!loaded) return;
@@ -48,23 +97,36 @@ const Navbar = () => {
 
   return (
     <>
-      <header className={`navbar ${open ? "is-open" : ""}`} ref={nav}>
+      <header className={`navbar ${open ? "is-open" : ""} ${hidden && !open ? "is-hidden" : ""} ${compact ? "is-compact" : ""}`} ref={nav}>
         <button className="nav-logo nav-reveal" onClick={() => go("home")} aria-label="Back to top">
-          <span className="nav-initials">{profile.monogram}</span>
-          <span className="nav-folder">
-            <span>Portfolio</span>
+          <span className="nav-mark">
+            {profile.monogram}
+            <i>.</i>
+          </span>
+          <span className="nav-who">
+            <b>{profile.name}</b>
+            <small>{profile.title}</small>
           </span>
         </button>
-        <a className="nav-mail nav-reveal" href={`mailto:${profile.email}`}>
-          <HoverLink>{profile.email}</HoverLink>
-        </a>
-        <nav className="nav-links" aria-label="Primary">
+
+        <nav className="nav-pill nav-reveal" aria-label="Primary" ref={pill}>
+          <span className="nav-ind" ref={ind} aria-hidden />
           {LINKS.map((l) => (
-            <button key={l.id} className="nav-reveal" onClick={() => go(l.id)}>
-              <HoverLink>{l.label}</HoverLink>
+            <button key={l.id} data-id={l.id} className={active === l.id ? "on" : ""} onClick={() => go(l.id)}>
+              {l.label}
             </button>
           ))}
         </nav>
+
+        <div className="nav-right nav-reveal">
+          <span className="nav-time" aria-label="Local time in Vadodara">
+            <i /> Vadodara <b>{time}</b>
+          </span>
+          <a className="nav-talk" href={`mailto:${profile.email}?subject=Project%20enquiry`}>
+            <span className="nav-live" aria-hidden />
+            <HoverLink>Let's talk</HoverLink>
+          </a>
+        </div>
         <button
           className="nav-burger nav-reveal"
           aria-label={open ? "Close menu" : "Open menu"}

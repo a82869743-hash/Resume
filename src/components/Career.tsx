@@ -25,11 +25,11 @@ const Career = () => {
             const d = i - p;
             const a = Math.min(Math.abs(d), 2);
             gsap.set(c, {
-              scale: 1 - a * 0.1,
-              opacity: 1 - a * 0.42,
-              rotationY: gsap.utils.clamp(-28, 28, -d * 22),
-              z: -a * 120,
-              filter: `blur(${a * 1.6}px)`,
+              scale: 1 - a * 0.14,
+              opacity: 1 - Math.min(a, 1) * 0.6,
+              rotationY: gsap.utils.clamp(-14, 14, -d * 14),
+              transformOrigin: d > 0 ? "0% 50%" : "100% 50%",
+              zIndex: 100 - Math.round(a * 10),
             });
             c.classList.toggle("is-on", Math.abs(d) < 0.5);
           });

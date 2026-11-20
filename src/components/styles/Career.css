@@ -104,7 +104,7 @@
 .wb-track {
   --w: min(640px, 48vw);
   display: flex;
-  column-gap: 28px;
+  column-gap: clamp(60px, 7vw, 120px);
   height: 100%;
   padding-left: calc(50vw - var(--w) / 2);
   transform-style: preserve-3d;
@@ -124,7 +124,7 @@
   border: 1px solid rgba(17, 17, 17, 0.08);
   box-shadow: 0 40px 70px -40px rgba(17, 17, 17, 0.45);
   overflow: hidden;
-  will-change: transform, opacity, filter;
+  will-change: transform, opacity;
   transition: border-color 0.4s, box-shadow 0.4s;
 }
 .wb-card.is-on {
