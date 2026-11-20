@@ -112,10 +112,10 @@ const Work = () => {
                 {p.videos ? (
                   <ReelPlayer videos={p.videos} poster={p.poster} label={`${p.name} reel`} />
                 ) : p.image && p.device === "art" ? (
-                  <img className="wk-illus" src={`./images/projects/${p.image}`} alt={`Illustration for ${p.name}`} loading="lazy" decoding="async" />
+                  <img className="wk-illus" src={`./images/projects/${p.image}`} alt={`Illustration for ${p.name}`} decoding="async" />
                 ) : p.image && p.device === "render" ? (
                   <div className="wk-render">
-                    <img src={`./images/projects/${p.image}`} alt={`${p.client ?? ""} ${p.name} — 3D render`} loading="lazy" decoding="async" />
+                    <img src={`./images/projects/${p.image}`} alt={`${p.client ?? ""} ${p.name} — 3D render`} decoding="async" />
                     <span>3D · WebGL</span>
                   </div>
                 ) : p.image ? (
@@ -127,7 +127,7 @@ const Work = () => {
                       {p.device !== "mobile" ? <span>{(p.client ?? "app").toLowerCase().replace(/[^a-z0-9]+/g, "")}.app</span> : null}
                     </div>
                     <div className="shot-screen">
-                      <img src={`./images/projects/${p.image}`} alt={`Screenshot of ${p.client ?? ""} ${p.name}`} loading="lazy" decoding="async" />
+                      <img src={`./images/projects/${p.image}`} alt={`Screenshot of ${p.client ?? ""} ${p.name}`} decoding="async" />
                     </div>
                   </div>
                 ) : (

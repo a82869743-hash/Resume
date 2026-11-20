@@ -336,3 +336,18 @@
   width: 84%;
   height: 84%;
 }
+@media (max-width: 600px) {
+  .tk-ring.r3 .tk-spin {
+    display: none;
+  }
+  .tk-ring.r3 {
+    border-style: dotted;
+  }
+  .tk-chip-in {
+    font-size: 9px !important;
+    padding: 3px 7px !important;
+  }
+  .tk-core {
+    width: 20% !important;
+  }
+}

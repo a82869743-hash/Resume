@@ -33,7 +33,7 @@ const ReelPlayer = ({ videos, poster, label }: { videos: string[]; poster?: stri
           poster={poster ? `./images/projects/${poster}` : undefined}
           muted
           playsInline
-          preload="metadata"
+          preload="auto"
           aria-label={label}
           onEnded={() => setI((n) => (n + 1) % videos.length)}
         />

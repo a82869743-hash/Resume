@@ -5,6 +5,12 @@ import { gsap, prefersReducedMotion } from "../lib/gsap";
 import "./styles/Loader.css";
 
 const FLOORS = 10;
+const CRITICAL = [
+  "./images/aryan-hero.webp",
+  "./images/aryan-whiteboard.webp",
+  "./images/aryan-command.webp",
+  "./images/contact/plane.webp",
+];
 const STAGES = [
   "Initialising workspace",
   "Installing dependencies",
@@ -34,12 +40,24 @@ const Loader = () => {
   useEffect(() => {
     let fontsReady = false;
     document.fonts?.ready.then(() => (fontsReady = true));
+    // warm up the images the first screens need so nothing pops in late
+    let imagesReady = false;
+    Promise.all(
+      CRITICAL.map(
+        (src) =>
+          new Promise<void>((res) => {
+            const im = new Image();
+            im.onload = im.onerror = () => (im.decode ? im.decode().catch(() => {}).then(() => res()) : res());
+            im.src = src;
+          })
+      )
+    ).then(() => (imagesReady = true));
     const started = performance.now();
     const fast = prefersReducedMotion();
     let value = 0;
     const id = window.setInterval(() => {
       const elapsed = performance.now() - started;
-      const canFinish = (readyRef.current && fontsReady && elapsed > (fast ? 300 : 2400)) || elapsed > 9000;
+      const canFinish = (readyRef.current && fontsReady && imagesReady && elapsed > (fast ? 300 : 2400)) || elapsed > 9000;
       const cap = canFinish ? 100 : 92;
       const step = canFinish ? 4 : Math.random() * 2.4 + 0.4;
       value = Math.min(cap, value + step);

@@ -130,7 +130,7 @@ const Contact = () => {
                 data-depth={l.depth}
                 src={`./images/contact/${l.n}.webp`}
                 alt=""
-                loading="lazy"
+               
                 style={{ left: `${l.pos[0]}%`, top: `${l.pos[1]}%`, width: `${l.pos[2]}%` }}
               />
             ))}

@@ -421,3 +421,21 @@
     min-height: 420px;
   }
 }
+@media (max-width: 960px) {
+  .wb-l {
+    min-height: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  .wb-art {
+    position: relative !important;
+    right: auto !important;
+    bottom: auto !important;
+    display: block;
+    width: 62% !important;
+    max-height: none !important;
+    margin: 18px 0 -6px auto;
+  }
+  .wb-l .wb-num {
+    display: none;
+  }
+}

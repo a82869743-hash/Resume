@@ -7,6 +7,8 @@ import App from "./App";
 if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 if (location.hash) history.replaceState(null, "", location.pathname + location.search);
 window.scrollTo(0, 0);
+// leaving/reloading: reset so the next load starts at the top behind the loader
+window.addEventListener("pagehide", () => window.scrollTo(0, 0));
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

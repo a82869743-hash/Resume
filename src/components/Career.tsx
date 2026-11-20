@@ -120,7 +120,7 @@ const Career = () => {
                     <p className="wb-co">{r.company}</p>
                     {r.role.includes(" - ") ? <p className="wb-sub">{r.role.split(" - ")[1]}</p> : null}
                   </div>
-                  <img className="wb-art" src={ART[i % ART.length]} alt="" loading="lazy" aria-hidden />
+                  <img className="wb-art" src={ART[i % ART.length]} alt="" aria-hidden />
                   <span className="wb-num" aria-hidden>
                     {r.year}
                   </span>

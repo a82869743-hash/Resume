@@ -39,7 +39,7 @@ html {
 }
 
 body {
-  background: radial-gradient(ellipse at 50% 40%, #f4f4f4 0%, var(--bg) 60%, #e6e6e6 100%) fixed, var(--bg);
+  background: var(--bg);
   overflow-x: hidden;
   min-height: 100vh;
 }
@@ -159,4 +159,32 @@ button {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* page backdrop painted once on its own layer (no repaint while scrolling) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 40%, #f4f4f4 0%, var(--bg) 60%, #e6e6e6 100%);
+  transform: translateZ(0);
+}
+.grain {
+  transform: translateZ(0);
+  will-change: transform;
+}
+/* pause looping CSS animations while their section is off-screen */
+.is-offscreen *,
+.is-offscreen *::before,
+.is-offscreen *::after {
+  animation-play-state: paused !important;
+}
+
+/* never allow sideways page scroll (mobile) */
+html,
+body {
+  overflow-x: clip;
+  max-width: 100%;
 }

@@ -63,7 +63,7 @@ const WhatIDo = () => {
             alt="Illustration of Aryan controlling floating panels: code editor, sales dashboard, automation workflow and AI voice agent"
             width={1100}
             height={1100}
-            loading="lazy"
+           
           />
         </div>
 

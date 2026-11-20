@@ -84,7 +84,7 @@ const About = () => {
             alt="Illustration of Aryan explaining a website, CRM, AI agent and automation plan on a whiteboard"
             width={1051}
             height={1100}
-            loading="lazy"
+           
           />
           <figcaption>Strategy first — then the stack.</figcaption>
         </figure>
