@@ -259,19 +259,20 @@ export type Project = {
   desc: string;
   featured?: boolean;
   image?: string; // optional screenshot in public/images/projects
+  device?: "desktop" | "mobile";
   url?: string;
 };
 
 export const projects: Project[] = [
-  { client: "GK Auto Herb", name: "Integrated Business Management System", category: "Enterprise Software", featured: true,
+  { client: "GK Auto Herb", name: "Integrated Business Management System", category: "Enterprise Software", featured: true, image: "gk-app.webp", device: "mobile",
     desc: "Business operations, workforce management, staff attendance, customers, workflows and administration in one centralised digital ecosystem." },
-  { client: "God of Ceramic", name: "Enterprise Business Management Platform", category: "Enterprise Software", featured: true,
+  { client: "God of Ceramic", name: "Enterprise Business Management Platform", category: "Enterprise Software", featured: true, image: "goc-dashboard.webp",
     desc: "An extensive platform digitising operations, employee workflows, attendance, customer management and administration." },
-  { client: "O3", name: "Integrated Business Management System", category: "Enterprise Software",
+  { client: "O3", name: "Integrated Business Management System", category: "Enterprise Software", image: "o3-dashboard.webp",
     desc: "End-to-end management covering operations, employee administration, attendance and core business workflows." },
   { client: "Satyanarayan", name: "Integrated Business Operations Platform", category: "Enterprise Software",
     desc: "Digitised operations with centralised staff and attendance management and streamlined internal workflows." },
-  { client: "Happy", name: "Enterprise Operations Management System", category: "Enterprise Software",
+  { client: "Happy", name: "Enterprise Operations Management System", category: "Enterprise Software", image: "happy-dashboard.webp",
     desc: "Large-scale software integrating employees, attendance, operations, administration and organisation-wide workflows." },
   { client: "Swish Auto Care", name: "Garage Management & Operations System", category: "Enterprise Software", featured: true,
     desc: "Automotive service platform with CRM, job cards, bookings, estimates, vehicle management and employee workflows." },
@@ -293,7 +294,7 @@ export const projects: Project[] = [
     desc: "A premium, immersive website with modern UI and brand positioning to match a high-end detailing brand." },
   { client: "O3", name: "Corporate Website", category: "Websites",
     desc: "A structured corporate site establishing the company's digital presence and business offerings." },
-  { client: "Satyanarayan", name: "Business Website", category: "Websites",
+  { client: "Satyanarayan", name: "Business Website", category: "Websites", image: "satyanarayan-web.webp",
     desc: "A business website for brand presentation, service information and online visibility." },
   { client: "DBST Solutions", name: "Corporate Website", category: "Websites",
     desc: "A corporate website showcasing services and strengthening the company's digital brand." },

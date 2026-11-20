@@ -28,7 +28,7 @@ const Work = () => {
           },
         });
         gsap.utils.toArray<HTMLElement>(".wk-card").forEach((card) => {
-          const art = card.querySelector(".wk-art .pa");
+          const art = card.querySelector(".wk-art .pa, .wk-art .shot");
           if (art)
             gsap.from(art, {
               yPercent: 18,
@@ -77,7 +77,17 @@ const Work = () => {
               </div>
               <div className={`wk-art ${p.image ? "has-img" : ""}`}>
                 {p.image ? (
-                  <img src={`./images/projects/${p.image}`} alt={`Screenshot of ${p.name}`} loading="lazy" decoding="async" />
+                  <div className={`shot ${p.device ?? "desktop"}`}>
+                    <div className="shot-bar" aria-hidden>
+                      <i />
+                      <i />
+                      <i />
+                      {p.device !== "mobile" ? <span>{(p.client ?? "app").toLowerCase().replace(/[^a-z0-9]+/g, "")}.app</span> : null}
+                    </div>
+                    <div className="shot-screen">
+                      <img src={`./images/projects/${p.image}`} alt={`Screenshot of ${p.client ?? ""} ${p.name}`} loading="lazy" decoding="async" />
+                    </div>
+                  </div>
                 ) : (
                   <ProjectArt category={p.category} seed={i} />
                 )}
