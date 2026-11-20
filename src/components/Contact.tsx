@@ -10,11 +10,11 @@ const Contact = () => {
 
   useGSAP(
     () => {
-      const split = SplitText.create(".ct-big .ln", { type: "words,chars" });
-      gsap.from(split.chars, {
+      const split = SplitText.create(".ct-big .ln", { type: "lines", mask: "lines" });
+      gsap.from(split.lines, {
         yPercent: 110,
-        duration: 1,
-        stagger: 0.02,
+        duration: 1.1,
+        stagger: 0.12,
         ease: "expo.out",
         scrollTrigger: { trigger: ".ct-big", start: "top 80%" },
       });

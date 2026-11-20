@@ -1,86 +1,51 @@
 .toolkit {
   display: grid;
-  grid-template-columns: 0.9fr 1.3fr;
+  grid-template-columns: 0.9fr 1.2fr;
   gap: clamp(30px, 5vw, 80px);
-  align-items: stretch;
+  align-items: center;
 }
-.tk-lists {
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  gap: 30px;
-  margin-top: 44px;
-}
-.tk-lists h3 {
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 14px;
-}
-.tk-lists ul {
+.tk-legend {
   list-style: none;
+  margin-top: 36px;
   display: grid;
-  gap: 8px;
-  font-size: 15px;
-  color: #4a4a4a;
+  gap: 4px;
 }
-.tk-stage {
-  position: relative;
-  min-height: 560px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  overflow: hidden;
-  background: radial-gradient(ellipse at 50% 120%, rgba(17, 17, 17, 0.072), transparent 60%), var(--bg-2);
+.tk-legend li {
+  display: flex;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  cursor: default;
+  transition: background 0.35s, transform 0.45s var(--ease);
 }
-.tk-stage::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(var(--line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: 40px 40px;
-  mask-image: linear-gradient(180deg, transparent, #000 70%);
-  pointer-events: none;
+.tk-legend li.on {
+  background: #fff;
+  transform: translateX(6px);
+  box-shadow: 0 14px 30px -20px rgba(17, 17, 17, 0.35);
 }
-.tk-stage canvas {
-  position: absolute !important;
-  inset: 0;
-}
-.tk-hint {
-  position: absolute;
-  top: 18px;
-  left: 20px;
-  z-index: 2;
+.tk-lg-no {
   font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-  pointer-events: none;
+  font-size: 12px;
+  color: var(--orange);
+  padding-top: 3px;
 }
-@media (max-width: 1000px) {
-  .toolkit {
-    grid-template-columns: 1fr;
-  }
-  .tk-stage {
-    min-height: 440px;
-  }
-  .tk-hint {
-    display: none;
-  }
+.tk-legend b {
+  font-size: 16px;
+  font-weight: 800;
 }
-@media (max-width: 520px) {
-  .tk-lists {
-    grid-template-columns: 1fr 1fr;
-  }
+.tk-legend p {
+  margin-top: 4px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #5a5a5a;
 }
 .tk-groups {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 18px 28px;
-  margin-top: 36px;
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px dashed rgba(17, 17, 17, 0.15);
 }
 .tk-group h3 {
   font-family: var(--mono);
@@ -92,12 +57,191 @@
   margin-bottom: 6px;
 }
 .tk-group p {
-  font-size: 14.5px;
+  font-size: 14px;
   line-height: 1.55;
   color: #3a3a3a;
+}
+
+/* ---------- orbit system ---------- */
+.tk-orbit {
+  position: relative;
+  aspect-ratio: 1;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  perspective: 1200px;
+}
+.tk-sys {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+.tk-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--d);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  border: 1px dashed rgba(17, 17, 17, 0.18);
+  transition: border-color 0.4s;
+}
+.tk-ring.r0 {
+  background: radial-gradient(circle, rgba(255, 90, 31, 0.06), transparent 70%);
+}
+.tk-spin {
+  transition: opacity 0.4s;
+}
+.tk-orbit.has-hot .tk-ring:not(.is-hot) .tk-spin {
+  opacity: 0.3;
+}
+.tk-ring.is-hot {
+  border-color: var(--orange);
+  border-style: solid;
+}
+.tk-spin {
+  position: absolute;
+  inset: 0;
+  animation: tkSpin var(--t) linear infinite;
+  animation-direction: var(--dir);
+}
+.tk-orbit:hover .tk-spin {
+  animation-play-state: paused;
+}
+.tk-chip {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform: rotate(var(--a)) translateY(calc(var(--d-px, 0px) * -1));
+}
+/* place on circumference: translate by half the ring size */
+.tk-ring .tk-chip {
+  transform: rotate(var(--a)) translateY(-50cqw);
+}
+.tk-ring {
+  container-type: inline-size;
+}
+.tk-chip-up {
+  position: absolute;
+  left: 0;
+  top: 0;
+  rotate: calc(var(--a) * -1);
+}
+.tk-chip-in {
+  position: absolute;
+  left: 0;
+  top: 0;
+  translate: -50% -50%;
+  display: block;
+  white-space: nowrap;
+  font-size: clamp(10.5px, 1.05vw, 13px);
+  font-weight: 700;
+  padding: 6px 11px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid rgba(17, 17, 17, 0.1);
+  box-shadow: 0 8px 18px -12px rgba(17, 17, 17, 0.4);
+  animation: tkSpin var(--t) linear infinite;
+  animation-direction: var(--dir);
+  animation-direction: var(--dir);
+  transition: background 0.3s, color 0.3s, scale 0.3s var(--ease);
+}
+/* counter-rotate so labels stay upright */
+.tk-ring:not(.r1):not(.r3) .tk-chip-in {
+  animation-direction: reverse;
+}
+.tk-ring.r1 .tk-chip-in,
+.tk-ring.r3 .tk-chip-in {
+  animation-direction: normal;
+}
+.tk-orbit:hover .tk-chip-in {
+  animation-play-state: paused;
+}
+.tk-ring.r0 .tk-chip-in {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+.tk-ring.is-hot .tk-chip-in {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+  scale: 1.08;
+}
+.tk-chip-in:hover {
+  scale: 1.15;
+}
+.tk-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 18%;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  padding: 4px;
+  background: var(--grad);
+  box-shadow: 0 0 0 8px rgba(255, 90, 31, 0.12), 0 20px 40px -14px rgba(255, 90, 31, 0.6);
+}
+.tk-core img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+.tk-core span {
+  position: absolute;
+  right: -6px;
+  bottom: -2px;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 12px;
+  padding: 3px 7px;
+  border-radius: 8px;
+  background: #111;
+  color: #fff;
+}
+.tk-hint {
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  translate: -50% 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+@keyframes tkSpin {
+  to {
+    rotate: 360deg;
+  }
+}
+@media (max-width: 1000px) {
+  .toolkit {
+    grid-template-columns: 1fr;
+  }
+  .tk-hint {
+    display: none;
+  }
 }
 @media (max-width: 520px) {
   .tk-groups {
     grid-template-columns: 1fr;
+  }
+  .tk-chip-in {
+    font-size: 9.5px;
+    padding: 4px 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tk-spin,
+  .tk-chip-in {
+    animation: none !important;
   }
 }
