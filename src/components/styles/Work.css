@@ -423,3 +423,29 @@
 .shot.mobile {
   position: relative;
 }
+
+.shot.reel video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #eef0ff;
+}
+.reel-badge {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(17, 17, 17, 0.75);
+  color: #fff;
+}
+.reel-badge {
+  color: #fff;
+}

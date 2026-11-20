@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { gsap, ScrollTrigger, useGSAP } from "../lib/gsap";
 import { projects } from "../data/resume";
 import ProjectArt from "./ProjectArt";
+import ReelPlayer from "./ReelPlayer";
 import "./styles/Work.css";
 
 const Work = () => {
@@ -75,8 +76,10 @@ const Work = () => {
                 <span className="wk-no">{String(i + 1).padStart(2, "0")}</span>
                 <span className="chip">{p.category}</span>
               </div>
-              <div className={`wk-art ${p.image ? "has-img" : ""}`}>
-                {p.image ? (
+              <div className={`wk-art ${p.image || p.videos ? "has-img" : ""}`}>
+                {p.videos ? (
+                  <ReelPlayer videos={p.videos} poster={p.poster} label={`${p.name} reel`} />
+                ) : p.image ? (
                   <div className={`shot ${p.device ?? "desktop"}`}>
                     <div className="shot-bar" aria-hidden>
                       <i />

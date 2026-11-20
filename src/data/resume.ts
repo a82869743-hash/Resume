@@ -118,12 +118,12 @@ export const experience: Role[] = [
     start: "2023",
     end: "Present",
     year: "NOW",
-    highlights: ["25 client engagements", "9 business systems", "8 websites", "5 + 7 marketing clients"],
+    highlights: ["26 client engagements", "9 business systems", "9 websites", "5 + 7 marketing clients"],
     points: [
       "Run a full-time freelance practice and growing agency delivering software, AI, automation and marketing for businesses across seven industries.",
       "Own the full client lifecycle — requirement gathering, solution architecture, development, deployment and ongoing support.",
       "Designed and built 9 integrated business and manufacturing management systems covering staff, attendance, CRM, operations and administration.",
-      "Delivered 8 corporate, business, healthcare and product websites, plus marketplace and growth platforms.",
+      "Delivered 9 corporate, business, healthcare and product websites, plus marketplace and growth platforms.",
       "Shipped an AI voice agent and AI-integrated business features for client operations.",
       "Combine business strategy with technology so every build maps to a measurable business outcome.",
     ],
@@ -215,7 +215,7 @@ export const achievements = [
   },
   {
     label: "Websites",
-    metric: "8",
+    metric: "9",
     metricLabel: "websites & digital experiences",
     text: "Corporate, business, automotive and healthcare websites designed and developed end to end.",
   },
@@ -260,6 +260,9 @@ export type Project = {
   featured?: boolean;
   image?: string; // optional screenshot in public/images/projects
   device?: "desktop" | "mobile";
+  /** Vertical reels played in sequence inside a phone frame. */
+  videos?: string[];
+  poster?: string;
   url?: string;
 };
 
@@ -270,7 +273,7 @@ export const projects: Project[] = [
     desc: "An extensive platform digitising operations, employee workflows, attendance, customer management and administration." },
   { client: "O3", name: "Integrated Business Management System", category: "Enterprise Software", image: "o3-dashboard.webp",
     desc: "End-to-end management covering operations, employee administration, attendance and core business workflows." },
-  { client: "Satyanarayan", name: "Integrated Business Operations Platform", category: "Enterprise Software",
+  { client: "Satyanarayan", name: "Integrated Business Operations Platform", category: "Enterprise Software", image: "satyanarayan-admin.webp",
     desc: "Digitised operations with centralised staff and attendance management and streamlined internal workflows." },
   { client: "Happy", name: "Enterprise Operations Management System", category: "Enterprise Software", image: "happy-dashboard.webp",
     desc: "Large-scale software integrating employees, attendance, operations, administration and organisation-wide workflows." },
@@ -300,6 +303,8 @@ export const projects: Project[] = [
     desc: "A corporate website showcasing services and strengthening the company's digital brand." },
   { client: "Dr Neha Physiotherapy", name: "Healthcare Clinic Website", category: "Websites", image: "physio-web.webp",
     desc: "An accessible clinic website presenting services, patient information and essential details." },
+  { client: "Swish Auto Care", name: "Premium Detailing Website", category: "Websites", image: "swish-web.webp",
+    desc: "A bold detailing-studio website for interior, exterior and ceramic protection services with booking and gallery." },
   { client: "GrowthMates", name: "Product Marketing Website", category: "Websites", image: "growthmates-web.webp",
     desc: "Launch site for an operational agentic AI product — animated workflow demo, ROI calculator, enterprise and roadmap pages." },
   { client: "Vroomy", name: "AI Car Advisor Website", category: "Websites", image: "vroomy-web.webp",
@@ -308,11 +313,11 @@ export const projects: Project[] = [
     desc: "A conversational AI voice agent automating voice-based customer interactions and business communication." },
   { name: "AI-Powered Business Automation", category: "AI & Voice",
     desc: "AI-driven capabilities wired into business apps and workflows for intelligent, automated operations." },
-  { name: "White-Label Marketing Automation — 5 Clients", category: "Automation", featured: true,
+  { name: "White-Label Marketing Automation — 5 Clients", category: "Automation", featured: true, image: "vroomy-studio.webp",
     desc: "Multi-client automation infrastructure with white-label configuration and client-specific marketing workflows." },
   { name: "Meta Ads & Performance Marketing — 7 Clients", category: "Performance Marketing",
     desc: "Campaign strategy, audience targeting, lead generation, monitoring and optimisation across seven accounts." },
-  { name: "Multi-Client Digital Marketing & Content", category: "Content & Growth",
+  { name: "Multi-Client Digital Marketing & Content", category: "Content & Growth", videos: ["launch3.mp4", "vroomy-outro.mp4"], poster: "launch3-poster.webp",
     desc: "Social media, reels, content calendars, creative direction and brand positioning for client growth." },
 ];
 
