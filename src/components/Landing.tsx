@@ -1,29 +1,29 @@
 import { useRef } from "react";
+import { FiArrowDownRight, FiArrowUpRight } from "react-icons/fi";
 import { useLoading } from "../context/LoadingProvider";
-import { gsap, SplitText, useGSAP, isTouch } from "../lib/gsap";
+import { gsap, SplitText, useGSAP, isTouch, scrollToId } from "../lib/gsap";
 import { profile } from "../data/resume";
 import "./styles/Landing.css";
 
-const TITLE = "PORTFOLIO".split("");
+const ROLES = ["Full-Stack Developer", "AI Automation Engineer", "Growth Strategist", "Business Systems Builder"];
+const BADGE = "OPEN FOR PROJECTS • FREELANCE + AGENCY • ";
 
 const Landing = () => {
   const { loaded, setSceneReady } = useLoading();
   const root = useRef<HTMLElement>(null);
-  const figure = useRef<HTMLDivElement>(null);
 
-  // mouse parallax tilt on the character
+  // mouse depth: word and character move in opposite directions
   useGSAP(
     () => {
       if (isTouch()) return;
-      const rx = gsap.quickTo(figure.current, "rotationY", { duration: 0.8, ease: "power3" });
-      const ry = gsap.quickTo(figure.current, "rotationX", { duration: 0.8, ease: "power3" });
-      const mx = gsap.quickTo(figure.current, "x", { duration: 0.9, ease: "power3" });
+      const wx = gsap.quickTo(".hx-word", "x", { duration: 1.2, ease: "power3" });
+      const cx = gsap.quickTo(".hx-figure", "x", { duration: 1, ease: "power3" });
+      const cr = gsap.quickTo(".hx-figure", "rotationY", { duration: 1, ease: "power3" });
       const move = (e: PointerEvent) => {
         const px = e.clientX / window.innerWidth - 0.5;
-        const py = e.clientY / window.innerHeight - 0.5;
-        rx(px * 8);
-        ry(-py * 5);
-        mx(px * 18);
+        wx(-px * 40);
+        cx(px * 24);
+        cr(px * 6);
       };
       window.addEventListener("pointermove", move);
       return () => window.removeEventListener("pointermove", move);
@@ -31,84 +31,53 @@ const Landing = () => {
     { scope: root }
   );
 
-  // scroll exit
+  // scroll: word lifts and widens, character sinks slower — depth parallax
   useGSAP(
     () => {
-      gsap.to(".hero-figure-wrap", {
-        yPercent: 18,
-        scale: 0.92,
-        ease: "none",
-        scrollTrigger: { trigger: root.current, start: "top top", end: "bottom top", scrub: true },
-      });
-      gsap.to([".hero-left", ".hero-right"], {
-        yPercent: -60,
-        opacity: 0,
-        ease: "none",
-        scrollTrigger: { trigger: root.current, start: "top top", end: "60% top", scrub: true },
-      });
+      const st = { trigger: root.current, start: "top top", end: "bottom top", scrub: true };
+      gsap.to(".hx-word-in", { yPercent: -45, scale: 1.12, ease: "none", scrollTrigger: st });
+      gsap.to(".hx-figure-wrap", { yPercent: 14, ease: "none", scrollTrigger: st });
+      gsap.to([".hx-intro", ".hx-cta", ".hx-badge"], { y: -80, opacity: 0, ease: "none", scrollTrigger: { ...st, end: "55% top" } });
     },
     { scope: root }
   );
 
-  // intro once the loader lifts
   useGSAP(
     () => {
       if (!loaded) return;
-      const name = SplitText.create(".hero-name .ln", { type: "chars", charsClass: "char" });
-      const tl = gsap.timeline({ delay: 0.5 });
-      tl.from(".hero-figure-wrap", { yPercent: 30, opacity: 0, duration: 1.6, ease: "expo.out" })
-        .from(".pf-title .pf-ch", { yPercent: 110, duration: 1, stagger: 0.04, ease: "expo.out" }, 0.1)
-        .from(".hero-hello", { y: 20, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.5)
-        .from(name.chars, { yPercent: 110, duration: 1, stagger: 0.03, ease: "expo.out" }, 0.55)
-        .from(".hero-role-sub", { y: 20, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.7)
-        .fromTo(
-          ".hero-word-wrap",
-          { clipPath: "inset(0% 100% 0% 0%)" },
-          { clipPath: "inset(0% 0% 0% 0%)", duration: 1.2, ease: "expo.inOut" },
-          0.8
-        );
+      const word = SplitText.create(".hx-word-in", { type: "chars", charsClass: "hx-ch" });
+      const tl = gsap.timeline({ delay: 0.45 });
+      tl.from(word.chars, { yPercent: 120, duration: 1.4, stagger: 0.07, ease: "expo.out" })
+        .from(".hx-figure-wrap", { yPercent: 35, opacity: 0, duration: 1.6, ease: "expo.out" }, 0.25)
+        .from(".hx-intro > *", { y: 30, opacity: 0, duration: 0.9, stagger: 0.08, ease: "power3.out" }, 0.8)
+        .from(".hx-cta > *", { y: 30, opacity: 0, duration: 0.9, stagger: 0.08, ease: "power3.out" }, 0.9)
+        .from(".hx-badge", { scale: 0, rotate: -120, duration: 1.2, ease: "back.out(1.6)" }, 1.1);
 
-      // PORTFOLIO letters flip between solid and outline
-      const chars = gsap.utils.toArray<HTMLElement>(".pf-title .pf-ch");
-      const flip = gsap.timeline({ repeat: -1, repeatDelay: 2.2, delay: 2.4 });
-      flip
-        .to(chars, { rotationX: 360, duration: 1.1, stagger: { each: 0.07 }, ease: "power3.inOut" })
-        .add(() => chars.forEach((c) => c.classList.toggle("is-outline")), 0.5);
+      gsap.to(".hx-badge-ring", { rotate: 360, duration: 14, repeat: -1, ease: "none" });
 
-      // rotating role word
-      const words = gsap.utils.toArray<HTMLElement>(".hero-word");
-      gsap.set(words.slice(1), { yPercent: 100, opacity: 0 });
-      const loop = gsap.timeline({ repeat: -1, delay: 2.6 });
-      words.forEach((w, i) => {
-        const next = words[(i + 1) % words.length];
+      // rolling role pill
+      const items = gsap.utils.toArray<HTMLElement>(".hx-pill-item");
+      gsap.set(items.slice(1), { yPercent: 110 });
+      const loop = gsap.timeline({ repeat: -1, delay: 2.4 });
+      items.forEach((it, i) => {
+        const next = items[(i + 1) % items.length];
         loop
-          .to(w, { yPercent: -100, opacity: 0, duration: 0.8, ease: "expo.inOut" }, "+=2")
-          .fromTo(
-            next,
-            { yPercent: 100, opacity: 0 },
-            { yPercent: 0, opacity: 1, duration: 0.8, ease: "expo.inOut", immediateRender: false },
-            "<"
-          );
+          .to(it, { yPercent: -110, duration: 0.7, ease: "expo.inOut" }, "+=1.8")
+          .fromTo(next, { yPercent: 110 }, { yPercent: 0, duration: 0.7, ease: "expo.inOut", immediateRender: false }, "<");
       });
-      return () => name.revert();
+      return () => word.revert();
     },
     { scope: root, dependencies: [loaded] }
   );
 
   return (
-    <section className="landing" id="home" ref={root}>
-      <h2 className="pf-title" aria-hidden>
-        {TITLE.map((c, i) => (
-          <span className="pf-ch-wrap" key={i}>
-            <span className={`pf-ch ${i % 2 ? "is-outline" : ""}`}>{c}</span>
-          </span>
-        ))}
-      </h2>
+    <section className="hx" id="home" ref={root}>
+      <div className="hx-word" aria-hidden>
+        <span className="hx-word-in">{profile.firstName.toUpperCase()}</span>
+      </div>
 
-      <div className="hero-glow" aria-hidden />
-
-      <div className="hero-figure-wrap">
-        <div className="hero-figure" ref={figure}>
+      <div className="hx-figure-wrap">
+        <div className="hx-figure">
           <img
             src="./images/aryan-hero.webp"
             alt="Illustration of Aryan Singh Rajput with arms crossed holding a laptop"
@@ -121,24 +90,46 @@ const Landing = () => {
         </div>
       </div>
 
-      <div className="hero-left">
-        <p className="hero-hello">Hello! I'm</p>
-        <h1 className="hero-name">
-          <span className="ln solid">{profile.firstName.toUpperCase()}</span>
-          <span className="ln outline">{profile.lastName.toUpperCase()}</span>
+      <button className="hx-badge" onClick={() => scrollToId("contact")} aria-label="Start a project">
+        <svg className="hx-badge-ring" viewBox="0 0 120 120" aria-hidden>
+          <defs>
+            <path id="hxCircle" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0" />
+          </defs>
+          <text>
+            <textPath href="#hxCircle">{BADGE}</textPath>
+          </text>
+        </svg>
+        <span className="hx-badge-core">
+          <FiArrowUpRight />
+        </span>
+      </button>
+
+      <div className="hx-intro">
+        <p className="hx-hi">
+          Hi, I'm <strong>{profile.name}</strong>.
+        </p>
+        <h1 className="hx-iam">
+          I am a
+          <span className="hx-pill" aria-label={ROLES.join(", ")}>
+            {ROLES.map((r) => (
+              <span className="hx-pill-item" key={r} aria-hidden>
+                {r}
+              </span>
+            ))}
+          </span>
         </h1>
       </div>
 
-      <div className="hero-right">
-        <p className="hero-role-sub">I build</p>
-        <div className="hero-word-wrap" aria-label={profile.heroWords.join(", ")}>
-          {profile.heroWords.map((w) => (
-            <span className="hero-word" key={w} aria-hidden>
-              {w}
-            </span>
-          ))}
+      <div className="hx-cta">
+        <p>{profile.tagline}</p>
+        <div className="hx-btns">
+          <button className="hx-btn solid" onClick={() => scrollToId("work")}>
+            See my work <FiArrowDownRight />
+          </button>
+          <a className="hx-btn" href="./Aryan-Singh-Rajput-Resume.pdf" target="_blank" rel="noreferrer">
+            Resume <FiArrowUpRight />
+          </a>
         </div>
-        <p className="hero-role-foot">{profile.title} &amp; {profile.discipline}</p>
       </div>
     </section>
   );

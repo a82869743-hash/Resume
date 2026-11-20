@@ -3,60 +3,65 @@ import { gsap, useGSAP } from "../lib/gsap";
 import { experience, formatDates } from "../data/resume";
 import "./styles/Career.css";
 
-const initials = (s: string) =>
-  s
-    .split(" ")
-    .filter((w) => /^[A-Z]/.test(w))
-    .slice(0, 2)
-    .map((w) => w[0])
-    .join("");
+const ICONS = ["◆", "▣", "✦", "◎", "▲"];
 
 const Career = () => {
   const root = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
+  const n = experience.length;
 
   useGSAP(
     () => {
-      gsap.from(".xp-head > *", {
-        y: 50,
-        opacity: 0,
-        stagger: 0.08,
-        duration: 1.1,
-        ease: "expo.out",
-        scrollTrigger: { trigger: root.current, start: "top 75%" },
-      });
-
       const mm = gsap.matchMedia();
-      // Desktop: pinned rolodex — each card rolls up and out while the next rolls in.
+      // Desktop: pinned horizontal coverflow — the centred card is fully readable.
       mm.add("(min-width: 961px)", () => {
-        const cards = gsap.utils.toArray<HTMLElement>(".xp-card");
-        gsap.set(cards.slice(1), { rotationX: -75, yPercent: 55, opacity: 0, transformOrigin: "50% 0%" });
-        gsap.set(cards[0], { transformOrigin: "50% 100%" });
-        const tl = gsap.timeline({
-          defaults: { ease: "power2.inOut", duration: 1 },
+        const cards = gsap.utils.toArray<HTMLElement>(".wb-card");
+        const track = root.current!.querySelector<HTMLElement>(".wb-track")!;
+        const step = () => cards[0].offsetWidth + parseFloat(getComputedStyle(track).columnGap || "0");
+
+        const place = (p: number) => {
+          gsap.set(track, { x: -p * step() });
+          cards.forEach((c, i) => {
+            const d = i - p;
+            const a = Math.min(Math.abs(d), 2);
+            gsap.set(c, {
+              scale: 1 - a * 0.1,
+              opacity: 1 - a * 0.42,
+              rotationY: gsap.utils.clamp(-28, 28, -d * 22),
+              z: -a * 120,
+              filter: `blur(${a * 1.6}px)`,
+            });
+            c.classList.toggle("is-on", Math.abs(d) < 0.5);
+          });
+          gsap.set(".wb-bg-a", { xPercent: -p * 6 });
+          gsap.set(".wb-bg-b", { xPercent: -30 + p * 6 });
+        };
+        place(0);
+
+        const st = gsap.to({}, {
           scrollTrigger: {
-            trigger: ".xp-pin",
+            trigger: ".wb-pin",
             start: "top top",
-            end: () => `+=${(cards.length - 1) * window.innerHeight * 0.9}`,
+            end: () => `+=${(n - 1) * window.innerHeight * 0.85}`,
             pin: true,
-            scrub: 0.7,
+            scrub: 0.6,
             invalidateOnRefresh: true,
-            snap: { snapTo: 1 / (cards.length - 1), duration: { min: 0.2, max: 0.6 }, ease: "power2.inOut" },
-            onUpdate: (s) => setActive(Math.round(s.progress * (cards.length - 1))),
+            snap: { snapTo: 1 / (n - 1), duration: { min: 0.2, max: 0.6 }, ease: "power2.inOut" },
+            onUpdate: (s) => {
+              const p = s.progress * (n - 1);
+              place(p);
+              setActive(Math.round(p));
+            },
+            onRefresh: (s) => place(s.progress * (n - 1)),
           },
         });
-        cards.forEach((card, i) => {
-          if (i === 0) return;
-          const prev = cards[i - 1];
-          tl.set(prev, { transformOrigin: "50% 100%" }, i - 1)
-            .to(prev, { rotationX: 70, yPercent: -55, opacity: 0, scale: 0.92 }, i - 1)
-            .to(card, { rotationX: 0, yPercent: 0, opacity: 1 }, i - 1)
-            .to(".xp-bar i", { scaleY: i / (cards.length - 1) }, i - 1);
-        });
-        return () => gsap.set(cards, { clearProps: "all" });
+        return () => {
+          st.scrollTrigger?.kill();
+          gsap.set([...cards, track], { clearProps: "all" });
+        };
       });
       mm.add("(max-width: 960px)", () => {
-        gsap.utils.toArray<HTMLElement>(".xp-card").forEach((card) =>
+        gsap.utils.toArray<HTMLElement>(".wb-card").forEach((card) =>
           gsap.from(card, { y: 60, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: card, start: "top 85%" } })
         );
       });
@@ -65,69 +70,60 @@ const Career = () => {
   );
 
   return (
-    <section className="xp" id="career" ref={root}>
-      <div className="xp-pin">
-        <div className="xp-grid">
-          <div className="xp-head">
+    <section className="wb" id="career" ref={root}>
+      <div className="wb-pin">
+        <div className="wb-bg" aria-hidden>
+          <div className="wb-bg-a">WHERE I'VE BEEN · WHERE I'VE BEEN · WHERE I'VE BEEN ·</div>
+          <div className="wb-bg-b">SOFTWARE · AI · AUTOMATION · ADS · GROWTH · SOFTWARE · AI ·</div>
+        </div>
+
+        <header className="wb-head">
+          <div>
             <span className="eyebrow">Experience</span>
-            <h2 className="xp-title">
-              My <em>experience</em>
+            <h2 className="wb-title">
+              Where I've <em>been</em>
             </h2>
-            <p className="xp-lead">
-              One independent practice, four disciplines — software, AI automation, performance marketing and growth
-              strategy, delivered for real clients since 2023.
-            </p>
-            <div className="xp-nav">
-              <span className="xp-bar" aria-hidden>
-                <i />
-              </span>
-              <ol>
-                {experience.map((r, i) => (
-                  <li key={i} className={i === active ? "on" : i < active ? "done" : ""}>
-                    <span>{String(i + 1).padStart(2, "0")}</span>
-                    <b>{r.role.split(" - ")[0]}</b>
-                    <small>{r.unit}</small>
-                  </li>
-                ))}
-              </ol>
+          </div>
+          <div className="wb-count" aria-hidden>
+            <b>{String(active + 1).padStart(2, "0")}</b>
+            <span>/ {String(n).padStart(2, "0")}</span>
+            <div className="wb-dots">
+              {experience.map((_, i) => (
+                <i key={i} className={i === active ? "on" : ""} />
+              ))}
             </div>
           </div>
+        </header>
 
-          <div className="xp-stage">
+        <div className="wb-viewport">
+          <div className="wb-track">
             {experience.map((r, i) => (
-              <article className="xp-card" key={i}>
-                <header className="xp-top">
-                  <span className="xp-logo" aria-hidden>
-                    {initials(r.short)}
+              <article className="wb-card" key={i}>
+                <div className="wb-card-top">
+                  <span className="wb-ico" aria-hidden>
+                    {ICONS[i % ICONS.length]}
                   </span>
-                  <div className="xp-role">
-                    <h3>{r.role.split(" - ")[0]}</h3>
-                    <p>{r.company}</p>
-                  </div>
-                  <span className={`xp-status ${r.end === "Present" ? "now" : ""}`}>{formatDates(r)}</span>
-                </header>
-                <div className="xp-meta">
-                  {r.role.includes(" - ") ? <span>{r.role.split(" - ")[1]}</span> : null}
-                  {r.unit ? <span>{r.unit}</span> : null}
-                  {r.location ? <span>{r.location}</span> : null}
+                  <span className={`wb-date ${r.end === "Present" ? "now" : ""}`}>{formatDates(r)}</span>
                 </div>
-                <ul className="xp-points">
+                <h3>{r.role.split(" - ")[0]}</h3>
+                <p className="wb-co">
+                  {r.company}
+                  {r.unit ? <em> — {r.unit}</em> : null}
+                </p>
+                <ul>
                   {r.points.map((p) => (
                     <li key={p}>{p}</li>
                   ))}
                 </ul>
                 {r.highlights ? (
-                  <div className="xp-hl">
+                  <div className="wb-tags">
                     {r.highlights.map((h) => (
                       <span key={h}>{h}</span>
                     ))}
                   </div>
                 ) : null}
-                <span className="xp-year" aria-hidden>
-                  {r.year}
-                </span>
-                <span className="xp-idx" aria-hidden>
-                  {String(i + 1).padStart(2, "0")} / {String(experience.length).padStart(2, "0")}
+                <span className="wb-num" aria-hidden>
+                  {String(i + 1).padStart(2, "0")}
                 </span>
               </article>
             ))}
