@@ -586,3 +586,47 @@ a:hover .hover-link .hover-link-in {
   width: 17px;
   height: 17px;
 }
+
+/* symbol mark (no tile) */
+.nav-mark {
+  width: 44px !important;
+  height: 44px !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  display: grid !important;
+  place-items: center;
+}
+.nav-mark svg {
+  width: 40px;
+  height: 40px;
+  overflow: visible;
+}
+.nm-a {
+  fill: none;
+  stroke: #111;
+  stroke-width: 6.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.nm-bar {
+  stroke: var(--orange);
+  stroke-width: 5;
+  stroke-linecap: round;
+  transition: transform 0.5s var(--ease);
+  transform-origin: 24px 29px;
+}
+.nm-dot {
+  fill: var(--orange);
+  transition: transform 0.5s var(--ease);
+  transform-origin: 24px 8px;
+}
+.nav-logo:hover .nav-mark {
+  transform: none !important;
+  border-radius: 0 !important;
+}
+.nav-logo:hover .nm-dot {
+  transform: translateY(-4px) scale(1.15);
+}
+.nav-logo:hover .nm-bar {
+  transform: scaleX(1.18);
+}

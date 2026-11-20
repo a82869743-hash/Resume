@@ -101,9 +101,12 @@ const Navbar = () => {
     <>
       <header className={`navbar ${open ? "is-open" : ""} ${hidden && !open ? "is-hidden" : ""} ${compact ? "is-compact" : ""}`} ref={nav}>
         <button className="nav-logo nav-reveal" onClick={() => go("home")} aria-label="Back to top">
-          <span className="nav-mark">
-            {profile.monogram}
-            <i>.</i>
+          <span className="nav-mark" aria-hidden>
+            <svg viewBox="0 0 48 48">
+              <path className="nm-a" d="M7 41 L24 8 L41 41" />
+              <path className="nm-bar" d="M14.5 29 H33.5" />
+              <circle className="nm-dot" cx="24" cy="8" r="4.2" />
+            </svg>
           </span>
           <span className="nav-who">
             <b>{profile.name}</b>
