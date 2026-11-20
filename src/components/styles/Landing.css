@@ -288,3 +288,18 @@
     min-height: 560px;
   }
 }
+
+/* keep hero text clear of the bottom dock */
+@media (min-width: 1001px) {
+  .hx-intro {
+    bottom: clamp(100px, 14vh, 130px) !important;
+  }
+  .hx-cta {
+    bottom: clamp(120px, 17vh, 160px) !important;
+  }
+}
+@media (max-width: 1000px) {
+  .hx-intro {
+    bottom: calc(84px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}

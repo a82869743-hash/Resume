@@ -29,6 +29,7 @@ const Navbar = () => {
   const [active, setActive] = useState("home");
   const [hidden, setHidden] = useState(false);
   const [compact, setCompact] = useState(false);
+  const [tucked, setTucked] = useState(false);
   const [time, setTime] = useState("");
   const pill = useRef<HTMLDivElement>(null);
   const ind = useRef<HTMLSpanElement>(null);
@@ -54,6 +55,7 @@ const Navbar = () => {
         const y = self.scroll();
         setCompact(y > 80);
         setHidden(self.direction === 1 && y > window.innerHeight * 0.8);
+        setTucked(self.direction === 1 && y > window.innerHeight * 0.5 && self.progress < 0.97);
       },
     });
     const sts = LINKS.map((l) =>
@@ -84,12 +86,7 @@ const Navbar = () => {
       { y: -30, opacity: 0 },
       { y: 0, opacity: 1, duration: 1, stagger: 0.06, ease: "expo.out", delay: 0.8 }
     );
-    gsap.fromTo(
-      ".rail-reveal",
-      { x: -30, opacity: 0 },
-      { x: 0, opacity: 1, duration: 1, stagger: 0.08, ease: "expo.out", delay: 1.1 }
-    );
-    gsap.fromTo(".resume-fab", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "expo.out", delay: 1.2 });
+    gsap.fromTo(".dock", { y: 90, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: "expo.out", delay: 1.2 });
   }, [loaded]);
 
   const go = (id: string) => {
@@ -158,46 +155,44 @@ const Navbar = () => {
         </div>
       </header>
 
-      <aside className="side-rail" aria-label="Contact shortcuts">
-        <span className="rail-label rail-reveal" aria-hidden>
-          Let's connect
-        </span>
-        <span className="rail-line rail-reveal" aria-hidden />
-        <div className="rail-dock rail-reveal">
-        {socials.map((s) => (
-          <a key={s.label} className="rail-btn" href={s.url} target="_blank" rel="noreferrer" aria-label={s.label} data-tip={s.label}>
-            {SOCIAL_ICON[s.label]}
+      <div className={`dock ${tucked ? "is-tucked" : ""}`} aria-label="Quick contact">
+        <div className="dock-in">
+          {socials.map((s) => (
+            <a key={s.label} className="dock-btn" href={s.url} target="_blank" rel="noreferrer" aria-label={s.label} data-tip={s.label}>
+              {SOCIAL_ICON[s.label]}
+            </a>
+          ))}
+          <a className="dock-btn" href={`mailto:${profile.email}`} aria-label="Email Aryan" data-tip="Email">
+            <FiMail />
           </a>
-        ))}
-        <a className="rail-btn" href={`mailto:${profile.email}`} aria-label="Email Aryan" data-tip="Email">
-          <FiMail />
-        </a>
-        <a className="rail-btn" href={profile.phoneHref} aria-label="Call Aryan" data-tip="Call">
-          <FiPhone />
-        </a>
-        <a
-          className="rail-reveal"
-          href="https://www.google.com/maps/place/Vadodara,+Gujarat"
-          target="_blank"
-          rel="noreferrer"
-          aria-label={profile.location}
-          data-tip="Vadodara"
-        >
-          <FiMapPin />
-        </a>
+          <a className="dock-btn" href={profile.phoneHref} aria-label="Call Aryan" data-tip="Call">
+            <FiPhone />
+          </a>
+          <a
+            className="dock-btn"
+            href="https://www.google.com/maps/place/Vadodara,+Gujarat"
+            target="_blank"
+            rel="noreferrer"
+            aria-label={profile.location}
+            data-tip="Vadodara"
+          >
+            <FiMapPin />
+          </a>
+          <span className="dock-sep" aria-hidden />
+          <a className="dock-cv" href={RESUME} target="_blank" rel="noreferrer" ref={fab}>
+            <span className="dock-cv-ring" aria-hidden>
+              <svg viewBox="0 0 36 36" className="dock-cv-svg">
+                <circle cx="18" cy="18" r="15" className="fab-track" />
+                <circle cx="18" cy="18" r="15" className="fab-prog" pathLength={100} />
+              </svg>
+              <FiDownload />
+            </span>
+            <span>Download CV</span>
+          </a>
         </div>
-      </aside>
+      </div>
 
-      <a className="resume-fab" href={RESUME} target="_blank" rel="noreferrer" aria-label="Download CV" ref={fab}>
-        <svg className="fab-ring" viewBox="0 0 60 60" aria-hidden>
-          <circle cx="30" cy="30" r="27" className="fab-track" />
-          <circle cx="30" cy="30" r="27" className="fab-prog" pathLength={100} />
-        </svg>
-        <span className="fab-ico">
-          <FiDownload />
-        </span>
-        <span className="fab-label">Download CV</span>
-      </a>
+
     </>
   );
 };
