@@ -231,6 +231,7 @@ const ART: Record<Category, (p: { seed: number }) => JSX.Element> = {
   Automation: Flow,
   "Performance Marketing": Ads,
   "Content & Growth": Content,
+  "3D & WebGL": Website,
 };
 
 const ProjectArt = ({ category, seed }: { category: Category; seed: number }) => {

@@ -118,7 +118,7 @@ export const experience: Role[] = [
     start: "2023",
     end: "Present",
     year: "NOW",
-    highlights: ["26 client engagements", "9 business systems", "9 websites", "5 + 7 marketing clients"],
+    highlights: ["29 client engagements", "9 business systems", "9 websites", "5 + 7 marketing clients"],
     points: [
       "Run a full-time freelance practice and growing agency delivering software, AI, automation and marketing for businesses across seven industries.",
       "Own the full client lifecycle — requirement gathering, solution architecture, development, deployment and ongoing support.",
@@ -250,7 +250,8 @@ export type Category =
   | "AI & Voice"
   | "Automation"
   | "Performance Marketing"
-  | "Content & Growth";
+  | "Content & Growth"
+  | "3D & WebGL";
 
 export type Project = {
   name: string;
@@ -259,7 +260,7 @@ export type Project = {
   desc: string;
   featured?: boolean;
   image?: string; // optional screenshot in public/images/projects
-  device?: "desktop" | "mobile";
+  device?: "desktop" | "mobile" | "art" | "render";
   /** Vertical reels played in sequence inside a phone frame. */
   videos?: string[];
   poster?: string;
@@ -285,7 +286,7 @@ export const projects: Project[] = [
     desc: "Centralised manufacturing operations, workforce, attendance, workflows and administrative processes." },
   { client: "GIDC Manufacturing Co.", name: "Industrial Business Management System", category: "Manufacturing Software", image: "gidc-dashboard.webp",
     desc: "Company-wide digitalisation of operations, workforce administration, attendance and business processes." },
-  { client: "Freelance Marketspace", name: "Freelance Marketplace Platform", category: "Platforms",
+  { client: "Freelance Marketspace", name: "Freelance Marketplace Platform", category: "Platforms", image: "marketplace-art.webp", device: "art",
     desc: "A marketplace connecting freelance professionals and clients through an organised, opportunity-based ecosystem." },
   { client: "GrowthMates", name: "Operational Agentic AI Platform", category: "Platforms", image: "growthmates-platform.webp",
     desc: "Agentic AI platform turning business knowledge into action — workflow agents, decision engines, MCP data connectors and governance with human sign-off." },
@@ -309,13 +310,19 @@ export const projects: Project[] = [
     desc: "Launch site for an operational agentic AI product — animated workflow demo, ROI calculator, enterprise and roadmap pages." },
   { client: "Vroomy", name: "AI Car Advisor Website", category: "Websites", image: "vroomy-web.webp",
     desc: "Landing site for a 24×7 AI + human car advisor app — breakdown help, fair pricing and app-store conversion." },
-  { client: "God of Ceramic", name: "AI Voice Agent", category: "AI & Voice", featured: true,
+  { client: "GK Auto Herb", name: "3D Car Showroom Experience", category: "3D & WebGL", featured: true, image: "gk-3d-showroom.webp", device: "render",
+    desc: "A real-time 3D showroom built with Three.js and Blender — branded neon studio, reflective floor and an interactive car model." },
+  { client: "God of Ceramic", name: "3D Coating Configurator", category: "3D & WebGL", featured: true, image: "goc-3d-configurator.webp", device: "render",
+    desc: "Interactive Three.js + Blender car configurator on the God of Ceramic website — camera presets, two-tone wrap, self-healing PPF and lotus-effect demos." },
+  { client: "O3 Car Spa", name: "3D Detailing Studio Scene", category: "3D & WebGL", image: "o3-3d-showroom.webp", device: "render",
+    desc: "An interactive Three.js studio with a turntable car, hex-light walls and brand lighting for O3's premium detailing identity." },
+  { client: "God of Ceramic", name: "AI Voice Agent", category: "AI & Voice", featured: true, image: "voice-agent-art.webp", device: "art",
     desc: "A conversational AI voice agent automating voice-based customer interactions and business communication." },
   { name: "AI-Powered Business Automation", category: "AI & Voice",
     desc: "AI-driven capabilities wired into business apps and workflows for intelligent, automated operations." },
   { name: "White-Label Marketing Automation — 5 Clients", category: "Automation", featured: true, image: "vroomy-studio.webp",
     desc: "Multi-client automation infrastructure with white-label configuration and client-specific marketing workflows." },
-  { name: "Meta Ads & Performance Marketing — 7 Clients", category: "Performance Marketing",
+  { name: "Meta Ads & Performance Marketing — 7 Clients", category: "Performance Marketing", image: "meta-ads-art.webp", device: "art",
     desc: "Campaign strategy, audience targeting, lead generation, monitoring and optimisation across seven accounts." },
   { name: "Multi-Client Digital Marketing & Content", category: "Content & Growth", videos: ["launch3.mp4", "vroomy-outro.mp4"], poster: "launch3-poster.webp",
     desc: "Social media, reels, content calendars, creative direction and brand positioning for client growth." },
@@ -325,6 +332,7 @@ export const projects: Project[] = [
 export const skillGroups = [
   { title: "Languages", items: ["JavaScript", "Python", "C", "SQL"] },
   { title: "Frontend", items: ["React.js", "Next.js", "Tailwind CSS", "HTML5", "CSS3", "Responsive UI"] },
+  { title: "3D & Motion", items: ["Three.js", "React Three Fiber", "Blender", "GSAP", "WebGL"] },
   { title: "Backend", items: ["Node.js", "Express.js", "Flask", "REST APIs", "API Integration"] },
   { title: "Databases", items: ["MySQL", "MongoDB", "Supabase", "Firebase", "Database Design"] },
   { title: "AI & ML", items: ["AI Agents", "AI Voice Agents", "Whisper", "XGBoost", "YOLOv8", "SHAP", "NumPy", "Pandas"] },
@@ -336,6 +344,6 @@ export const skillGroups = [
 ];
 
 /** Physics blocks in the Toolkit section. */
-export const tools = ["React", "Next.js", "Node.js", "Python", "n8n", "AWS"];
+export const tools = ["React", "Next.js", "Node.js", "Python", "n8n", "AWS", "Three.js", "Blender"];
 export const reportKit = ["MongoDB", "MySQL", "Supabase", "Tailwind", "Express", "Flask", "Vercel", "Firebase"];
 export const languages = ["JavaScript", "SQL", "Whisper", "YOLOv8", "Meta Ads"];

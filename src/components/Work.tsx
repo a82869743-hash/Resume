@@ -29,7 +29,7 @@ const Work = () => {
           },
         });
         gsap.utils.toArray<HTMLElement>(".wk-card").forEach((card) => {
-          const art = card.querySelector(".wk-art .pa, .wk-art .shot");
+          const art = card.querySelector(".wk-art .pa, .wk-art .shot, .wk-illus, .wk-render");
           if (art)
             gsap.from(art, {
               yPercent: 18,
@@ -79,6 +79,13 @@ const Work = () => {
               <div className={`wk-art ${p.image || p.videos ? "has-img" : ""}`}>
                 {p.videos ? (
                   <ReelPlayer videos={p.videos} poster={p.poster} label={`${p.name} reel`} />
+                ) : p.image && p.device === "art" ? (
+                  <img className="wk-illus" src={`./images/projects/${p.image}`} alt={`Illustration for ${p.name}`} loading="lazy" decoding="async" />
+                ) : p.image && p.device === "render" ? (
+                  <div className="wk-render">
+                    <img src={`./images/projects/${p.image}`} alt={`${p.client ?? ""} ${p.name} — 3D render`} loading="lazy" decoding="async" />
+                    <span>3D · WebGL</span>
+                  </div>
                 ) : p.image ? (
                   <div className={`shot ${p.device ?? "desktop"}`}>
                     <div className="shot-bar" aria-hidden>
@@ -105,8 +112,8 @@ const Work = () => {
           ))}
         </div>
         <div className="wk-legend">
-          <span>Business systems · Manufacturing · Platforms · Websites · AI · Automation · Marketing</span>
-          <span className="wk-note">Client work — some systems are private and shown as illustrations</span>
+          <span>Business systems · Manufacturing · Platforms · Websites · 3D · AI · Automation · Marketing</span>
+          <span className="wk-note">Some private systems shown as illustrations</span>
         </div>
       </div>
     </section>
